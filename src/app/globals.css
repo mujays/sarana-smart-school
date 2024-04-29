@@ -18,21 +18,24 @@
     --primary: #0d69b3;
     --primary-foreground: #ffffff;
 
+    --primary-dark: #004369;
+    --primary-dark-foreground: #ffffff;
+
     --secondary: #f7942e;
     --secondary-foreground: #ffffff;
 
     --muted: #f5f5f5;
     --muted-foreground: #737373;
 
-    --accent: #063d69;
+    --accent: #3ca7db;
     --accent-foreground: #ffffff;
 
     --destructive: #ef4343;
     --destructive-foreground: #ffffff;
 
-    --border: #000000;
+    --border: #789ecb;
     --input: #000000;
-    --ring: #000000;
+    --ring: #789ecb;
 
     --radius: 0.5rem;
   }
