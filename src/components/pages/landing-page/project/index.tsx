@@ -1,5 +1,5 @@
 import AppPadding from "@/components/shared/app-padding";
-import CardSection from "./components/card-section";
+import CardSection from "../shared/card-section";
 import Title from "@/components/shared/title";
 
 function Project() {
