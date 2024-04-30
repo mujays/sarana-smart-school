@@ -124,9 +124,27 @@ export default function Homepage() {
             <p className="w-1/2">Cari tahu lebih lanjut tentang Kegiatan dan Informasi dari Smart School</p>
           </div>
           <div className="flex gap-3">
-            <Card alt="Dummy" date="20 July 2020" description="Kelas Membaca dan Menulis ABCD" src="https://cdn.pixabay.com/photo/2019/04/02/10/58/oldtimer-4097480_1280.jpg" />
-            <Card alt="Dummy" date="20 July 2020" description="Kelas Membaca dan Menulis ABCD" src="https://cdn.pixabay.com/photo/2019/04/02/10/58/oldtimer-4097480_1280.jpg" />
-            <Card alt="Dummy" date="20 July 2020" description="Kelas Membaca dan Menulis ABCD" src="https://cdn.pixabay.com/photo/2019/04/02/10/58/oldtimer-4097480_1280.jpg" />
+            <Card
+              href="/"
+              alt="Dummy"
+              date="20 July 2020"
+              description="Kelas Membaca dan Menulis ABCD"
+              src="https://cdn.pixabay.com/photo/2019/04/02/10/58/oldtimer-4097480_1280.jpg"
+            />
+            <Card
+              href="/"
+              alt="Dummy"
+              date="20 July 2020"
+              description="Kelas Membaca dan Menulis ABCD"
+              src="https://cdn.pixabay.com/photo/2019/04/02/10/58/oldtimer-4097480_1280.jpg"
+            />
+            <Card
+              href="/"
+              alt="Dummy"
+              date="20 July 2020"
+              description="Kelas Membaca dan Menulis ABCD"
+              src="https://cdn.pixabay.com/photo/2019/04/02/10/58/oldtimer-4097480_1280.jpg"
+            />
           </div>
         </section>
         <section className="mt-20 flex flex-col items-center text-center space-y-10">

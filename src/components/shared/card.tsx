@@ -1,7 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 
-function Card({ date, description, src, alt }: { date: string; description: string; src: string; alt: string }) {
+export type CardProps = { date: string; description: string; src: string; alt: string; href: string };
+
+function Card({ date, description, src, alt, href }: CardProps) {
   return (
     <div className="bg-primary-dark text-primary-foreground rounded-lg p-3 flex flex-col gap-3">
       <Image
@@ -18,7 +20,7 @@ function Card({ date, description, src, alt }: { date: string; description: stri
       />
       <p className="text-sm font-light">{date}</p>
       <p className="text-2xl mb-10">{description}</p>
-      <Link href="/">Read Full Post -&gt;</Link>
+      <Link href={href}>Read Full Post -&gt;</Link>
     </div>
   );
 }
