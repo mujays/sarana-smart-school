@@ -4,6 +4,7 @@ import { Button } from "@/components/shared/button";
 import { MENU } from "@/configs/constants/homepage";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 function Navbar() {
@@ -23,7 +24,8 @@ function Navbar() {
       />
       <div className="bg-[#DBEFE1] flex items-center pr-5 md:pr-20">
         {MENU.map((menu) => (
-          <div
+          <Link
+            href={menu.path}
             className={cn(
               "px-3 xl:px-6 h-full flex items-center text-primary text-sm xl:text-base whitespace-nowrap font-medium cursor-pointer hover:bg-accent hover:text-accent-foreground transition-colors",
               {
@@ -33,7 +35,7 @@ function Navbar() {
             key={menu.path}
           >
             {menu.label}
-          </div>
+          </Link>
         ))}
         <Button>Daftar Siswa Baru</Button>
       </div>

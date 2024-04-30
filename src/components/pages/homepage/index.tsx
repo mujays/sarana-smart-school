@@ -18,22 +18,24 @@ export default function Homepage() {
         <Banner />
       </div>
       <AppPadding className="space-y-5 py-10">
-        <div className="flex flex-col items-center text-center space-y-3">
-          <Title title="Mengapa SD Smart School ?" />
-          <p className="w-1/2">Smart School memfasilitasi berbagai minat dan bakat siswa serta mengembangkannya menjadi pribadi yang berani dan berkpribadian unggul.</p>
-        </div>
-        <div className="flex gap-8 py-10">
-          <div className="w-full h-30">
-            <ReactPlayer width="100%" height="240px" url="https://www.youtube.com/watch?v=d4s7NLqRC9k" />
+        <section className="py-20 space-y-10">
+          <div className="flex flex-col items-center text-center space-y-3">
+            <Title title="Mengapa SD Smart School ?" />
+            <p className="w-1/2">Smart School memfasilitasi berbagai minat dan bakat siswa serta mengembangkannya menjadi pribadi yang berani dan berkpribadian unggul.</p>
           </div>
-          <div className="w-full">
-            <ReactPlayer width="100%" height="240px" url="https://www.youtube.com/watch?v=d4s7NLqRC9k" />
+          <div className="flex gap-8">
+            <div className="w-full h-30">
+              <ReactPlayer width="100%" height="240px" url="https://www.youtube.com/watch?v=d4s7NLqRC9k" />
+            </div>
+            <div className="w-full">
+              <ReactPlayer width="100%" height="240px" url="https://www.youtube.com/watch?v=d4s7NLqRC9k" />
+            </div>
+            <div className="w-full">
+              <ReactPlayer width="100%" height="240px" url="https://www.youtube.com/watch?v=d4s7NLqRC9k" />
+            </div>
           </div>
-          <div className="w-full">
-            <ReactPlayer width="100%" height="240px" url="https://www.youtube.com/watch?v=d4s7NLqRC9k" />
-          </div>
-        </div>
-        <div className="flex py-20">
+        </section>
+        <section className="flex py-20">
           <div className="basis-5/12">
             <Image
               width={500}
@@ -57,8 +59,8 @@ export default function Homepage() {
               <Button>Pelajari Lebih Lanjut</Button>
             </div>
           </div>
-        </div>
-        <div className="py-10 space-y-5 text-center">
+        </section>
+        <section className="py-10 space-y-5 text-center">
           <Title title="Jenjang Pendidikan" />
           <div className="flex gap-5">
             <div className="w-full">
@@ -96,9 +98,9 @@ export default function Homepage() {
               <p>&quot;Mewujudkan siswa berjiwa pemimpin yang siap menghadapi kehidupan nyata yang beradab, berkarakter, dan beretika.&quot;</p>
             </div>
           </div>
-        </div>
+        </section>
       </AppPadding>
-      <div className="relative py-10 mb-32 space-y-5 flex flex-col items-center bg-accent">
+      <section className="relative py-10 mb-32 space-y-5 flex flex-col items-center bg-accent">
         <p className="text-2xl text-primary-foreground">Pengalaman Murid dan Guru di Smart School</p>
         <div className="flex gap-5 py-3">
           <Button className="text-primary-foreground" variant="outline">
@@ -114,9 +116,9 @@ export default function Homepage() {
             <InstagramEmbed url="https://www.instagram.com/p/CUbHfhpswxt/" width={328} />
           </div>
         </div>
-      </div>
+      </section>
       <AppPadding>
-        <div className="space-y-5">
+        <section className="space-y-5">
           <div className="flex flex-col items-center text-center space-y-3">
             <Title title="Publikasi" />
             <p className="w-1/2">Cari tahu lebih lanjut tentang Kegiatan dan Informasi dari Smart School</p>
@@ -126,8 +128,8 @@ export default function Homepage() {
             <Card alt="Dummy" date="20 July 2020" description="Kelas Membaca dan Menulis ABCD" src="https://cdn.pixabay.com/photo/2019/04/02/10/58/oldtimer-4097480_1280.jpg" />
             <Card alt="Dummy" date="20 July 2020" description="Kelas Membaca dan Menulis ABCD" src="https://cdn.pixabay.com/photo/2019/04/02/10/58/oldtimer-4097480_1280.jpg" />
           </div>
-        </div>
-        <div className="mt-20 flex flex-col items-center text-center space-y-10">
+        </section>
+        <section className="mt-20 flex flex-col items-center text-center space-y-10">
           <div className="w-full xl:w-3/6">
             <Title title="Daftar Sekarang dan Nikmati Pengalaman Belajar yang Menyenangkan" />
           </div>
@@ -216,7 +218,7 @@ export default function Homepage() {
             />
             <Button size="sm">Daftar Siswa Baru</Button>
           </div>
-        </div>
+        </section>
       </AppPadding>
     </main>
   );

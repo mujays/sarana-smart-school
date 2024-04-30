@@ -25,7 +25,7 @@ function Footer() {
                 height={30}
                 priority
                 alt="Location"
-                src="/images/icon/fax.svg"
+                src="/images/icon/pin.svg"
                 style={{
                   width: "30px",
                   height: "auto",
@@ -42,7 +42,7 @@ function Footer() {
                 height={30}
                 priority
                 alt="Telepon"
-                src="/images/icon/fax.svg"
+                src="/images/icon/telepon.svg"
                 style={{
                   width: "20px",
                   height: "auto",
@@ -56,7 +56,7 @@ function Footer() {
                 height={30}
                 priority
                 alt="FAX"
-                src="/images/icon/fax.svg"
+                src="/images/icon/envelope.svg"
                 style={{
                   width: "20px",
                   height: "auto",
