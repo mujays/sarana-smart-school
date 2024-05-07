@@ -10,7 +10,7 @@ import { usePathname } from "next/navigation";
 function Navbar() {
   const pathname = usePathname();
   return (
-    <nav className="sticky bg-background top-0 z-10 flex justify-between pl-5 md:pl-20 space-x-3">
+    <nav className="sticky bg-navbar top-0 z-[99] flex justify-center gap-4 pl-5 md:pl-20 space-x-3">
       <Image
         width={500}
         height={300}

@@ -49,3 +49,8 @@
     @apply bg-background text-foreground;
   }
 }
+
+.bg-navbar {
+  background: rgb(219, 239, 225);
+  background: linear-gradient(90deg, rgba(219, 239, 225, 0) 50%, rgba(219, 239, 225, 1) 50%);
+}
