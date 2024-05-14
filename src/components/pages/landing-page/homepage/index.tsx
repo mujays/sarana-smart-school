@@ -7,8 +7,8 @@ import Image from "next/image";
 import { Button } from "@/components/shared/button";
 import Card from "@/components/shared/card";
 import { Input } from "@/components/shared/input";
-
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
+
 const InstagramEmbed = dynamic(() => import("react-social-media-embed").then((el) => el.InstagramEmbed), { ssr: false });
 
 export default function Homepage() {
