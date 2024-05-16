@@ -5,13 +5,35 @@ import AppPadding from "@/components/shared/app-padding";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { Button } from "@/components/shared/button";
-import Card from "@/components/shared/card";
 import { Input } from "@/components/shared/input";
+import { useQuery } from "@tanstack/react-query";
+import ContentsService from "@/service/content.service";
+import ErrorRender from "@/components/shared/error-render";
+import CardSkeleton from "../shared/card-skeleton";
+import Card from "@/components/shared/card";
+import "moment/locale/id";
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 
 const InstagramEmbed = dynamic(() => import("react-social-media-embed").then((el) => el.InstagramEmbed), { ssr: false });
 
 export default function Homepage() {
+  const {
+    data: news,
+    isLoading,
+    isError,
+    isFetching,
+    refetch,
+  } = useQuery({
+    queryKey: ["news"],
+    queryFn: async () => {
+      return await ContentsService.getNews({
+        page: 1,
+        page_size: 3,
+        sd: "yes",
+      });
+    },
+  });
+
   return (
     <main className="pb-10">
       <div className="relative">
@@ -123,29 +145,34 @@ export default function Homepage() {
             <Title title="Publikasi" />
             <p className="w-1/2">Cari tahu lebih lanjut tentang Kegiatan dan Informasi dari Smart School</p>
           </div>
-          <div className="flex gap-3">
-            <Card
-              href="/"
-              alt="Dummy"
-              date="20 July 2020"
-              description="Kelas Membaca dan Menulis ABCD"
-              src="https://cdn.pixabay.com/photo/2019/04/02/10/58/oldtimer-4097480_1280.jpg"
-            />
-            <Card
-              href="/"
-              alt="Dummy"
-              date="20 July 2020"
-              description="Kelas Membaca dan Menulis ABCD"
-              src="https://cdn.pixabay.com/photo/2019/04/02/10/58/oldtimer-4097480_1280.jpg"
-            />
-            <Card
-              href="/"
-              alt="Dummy"
-              date="20 July 2020"
-              description="Kelas Membaca dan Menulis ABCD"
-              src="https://cdn.pixabay.com/photo/2019/04/02/10/58/oldtimer-4097480_1280.jpg"
-            />
-          </div>
+          {isLoading ? (
+            <div className="grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-8 mt-10">
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+            </div>
+          ) : isError && !isFetching ? (
+            <div className="h-[50vh] flex items-center">
+              <ErrorRender refetch={refetch} />
+            </div>
+          ) : news?.data.length === 0 ? (
+            <div className="flex justify-center h-[50vh]">
+              <div className="text-center space-y-2">
+                <p>Tidak Ada Publikasi</p>
+              </div>
+            </div>
+          ) : (
+            <>
+              <div className="grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-8 mt-10">
+                {news?.data.map((data) => (
+                  <Card key={data.id} date={data.created_at} href={`/publikasi/${data.id}`} src={data.url} description={data.title} />
+                ))}
+              </div>
+            </>
+          )}
         </section>
         <section className="mt-20 flex flex-col items-center text-center space-y-10">
           <div className="w-full xl:w-3/6">

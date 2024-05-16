@@ -1,8 +1,9 @@
 import Image from "next/image";
+import Link from "next/link";
 
-function CardNews({ src, title, description }: { src: string; title: string; description: string }) {
+function CardNews({ src, title, href }: { src: string; title: string; href: string }) {
   return (
-    <div className="bg-primary-foreground border border-gray-300 rounded-md overflow-hidden space-y-2">
+    <Link href={href} className="bg-primary-foreground aspect-auto border border-gray-300 rounded-md overflow-hidden">
       <div className="aspect-video">
         <Image
           width={500}
@@ -17,12 +18,11 @@ function CardNews({ src, title, description }: { src: string; title: string; des
           }}
         />
       </div>
-      <div className="p-3">
+      <div className="p-3 flex flex-col justify-between">
+        <p className="text-xs pt-2 text-gray-400">10 Januari 2020</p>
         <p className="text-lg font-medium">{title}</p>
-        <p className="text-xs text-justify">{description}</p>
-        <p className="text-end text-xs pt-2 text-gray-400">10 Januari 2020</p>
       </div>
-    </div>
+    </Link>
   );
 }
 
