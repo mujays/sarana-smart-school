@@ -8,7 +8,7 @@ function CardSection({ cardData, title }: { cardData: CardProps[]; title?: strin
         {title && <Title title={title} />}
         <div className="grid gap-5 grid-cols-1 md:grid-cols-3 xl:grid-cols-5">
           {cardData.map((data, i) => (
-            <Card key={i} alt={data.alt} date={data.date} description={data.description} href={data.href} src={data.src}></Card>
+            <Card key={i} date={data.date} description={data.description} href={data.href} src={data.src}></Card>
           ))}
         </div>
       </div>

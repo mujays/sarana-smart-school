@@ -6,7 +6,7 @@ export type CardProps = { date: Date; description: string; src: string; href: st
 
 function Card({ date, description, src, href }: CardProps) {
   return (
-    <Link href={href} className="bg-primary-dark text-primary-foreground rounded-lg p-3 flex flex-col gap-3">
+    <Link href={href} className="bg-primary-dark h-full text-primary-foreground rounded-lg p-3 flex flex-col gap-3">
       <div className="aspect-video overflow-hidden">
         <Image
           width={500}

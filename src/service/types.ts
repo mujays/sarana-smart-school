@@ -2,6 +2,7 @@ export type ArticleType = {
   id: number;
   title: string;
   url: string;
+  slug: string;
   body: string;
   is_for_yayasan: 0;
   is_for_sd: 0;
@@ -11,12 +12,32 @@ export type ArticleType = {
   views: 19;
   created_at: Date;
   updated_at: Date;
+  meta: {
+    id: number;
+    name: string;
+    value: string;
+  }[];
+};
+
+export type BannerType = {
+  id: number;
+  pages: string;
+  url: string;
+};
+
+export type SocmedType = {
+  id: number;
+  title: string;
+  sosial_media: string;
+  url: string;
+  is_publish: boolean;
+  thumbnail: string;
 };
 
 export type RequestArticleDto = {
   smp?: "yes";
-  page: number;
-  page_size: number;
+  page?: number;
+  page_size?: number;
   yayasan?: "yes";
   sd?: "yes";
   search?: string;

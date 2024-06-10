@@ -18,7 +18,7 @@ function Footer() {
                 height: "auto",
               }}
             />
-            <div className="flex gap-5 justify-between text-primary-foreground">
+            <div className="flex flex-col lg:flex-row gap-10 lg:gap-5 justify-between text-primary-foreground">
               <div className="space-y-5 w-full">
                 <p className="font-medium">Sekolah Adab Kepimimpinan</p>
                 <div className="flex gap-3 items-center">

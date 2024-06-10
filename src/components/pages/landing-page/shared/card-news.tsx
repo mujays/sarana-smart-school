@@ -1,16 +1,19 @@
+import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
+import "moment/locale/id";
 
-function CardNews({ src, title, href }: { src: string; title: string; href: string }) {
+function CardNews({ src, title, href, date }: { src: string; title: string; href: string; date: Date }) {
   return (
-    <Link href={href} className="bg-primary-foreground aspect-auto border border-gray-300 rounded-md overflow-hidden">
+    <Link href={href} className="bg-primary-foreground block border border-gray-300 rounded-md  space-y-2">
       <div className="aspect-video">
         <Image
           width={500}
-          height={100}
+          height={300}
           priority
           alt="News"
-          src={src}
+          src={src || "/images/no-thumbnail.png"}
+          sizes="500px"
           style={{
             width: "100%",
             height: "100%",
@@ -18,9 +21,9 @@ function CardNews({ src, title, href }: { src: string; title: string; href: stri
           }}
         />
       </div>
-      <div className="p-3 flex flex-col justify-between">
-        <p className="text-xs pt-2 text-gray-400">10 Januari 2020</p>
+      <div className="p-3">
         <p className="text-lg font-medium">{title}</p>
+        <p>{moment(date).format("LL")}</p>
       </div>
     </Link>
   );
