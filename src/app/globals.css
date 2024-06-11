@@ -49,3 +49,14 @@
     @apply bg-background text-foreground;
   }
 }
+
+.bg-navbar {
+  background: rgb(255, 255, 255);
+}
+
+@media (min-width: 1080px) {
+  .bg-navbar {
+    background: rgb(228, 219, 239);
+    background: linear-gradient(90deg, rgb(255, 255, 255) 50%, rgba(219, 239, 225, 1) 50%);
+  }
+}

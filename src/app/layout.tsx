@@ -1,3 +1,4 @@
+import QueryProvider from "@/providers/query-client";
 import "./globals.css";
 
 export default function RootLayout({
@@ -6,8 +7,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="id">
+      <body className="overflow-x-hidden">
+        <QueryProvider>{children}</QueryProvider>
+      </body>
     </html>
   );
 }
