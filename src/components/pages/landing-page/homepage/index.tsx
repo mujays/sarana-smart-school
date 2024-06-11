@@ -36,12 +36,29 @@ export default function Homepage() {
     },
   });
 
-  const { data: socmed } = useQuery({
-    queryKey: ["socmeds"],
+  const { data: socmedYoutube } = useQuery({
+    queryKey: ["socmedsYT"],
     queryFn: async () => {
-      return await ContentsService.getSocmeds();
+      return await ContentsService.getSocmeds({
+        page: 1,
+        page_size: 4,
+        sosial_media: "YOUTUBE",
+      });
     },
   });
+
+  const { data: socmedIg } = useQuery({
+    queryKey: ["socmedsIg"],
+    queryFn: async () => {
+      return await ContentsService.getSocmeds({
+        sosial_media: "INSTAGRAM",
+        page: 1,
+        page_size: 3,
+      });
+    },
+  });
+
+  console.log(socmedIg);
 
   return (
     <main className="pb-10">
@@ -55,7 +72,7 @@ export default function Homepage() {
             <p className="w-1/2">Smart School memfasilitasi berbagai minat dan bakat siswa serta mengembangkannya menjadi pribadi yang berani dan berkpribadian unggul.</p>
           </motion.div>
           <motion.div variants={bottomToTop} initial="hidden" viewport={{ once: true }} whileInView="visible" className="flex flex-wrap justify-center gap-8">
-            {socmed?.data
+            {socmedYoutube?.data
               .filter((s) => s.sosial_media === "YOUTUBE")
               .map((s) => (
                 <div key={s.id} className="aspect-video">
@@ -139,7 +156,7 @@ export default function Homepage() {
             <Button>Kegiatan Guru Smart</Button>
           </div>
           <div className="flex flex-wrap justify-center gap-8">
-            {socmed?.data
+            {socmedIg?.data
               .filter((s) => s.sosial_media === "INSTAGRAM")
               .map((s) => (
                 <div key={s.id} style={{ display: "flex", justifyContent: "center" }}>

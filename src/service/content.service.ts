@@ -53,12 +53,9 @@ const ContentsService = {
     });
     return response.data;
   },
-  getSocmeds: async () => {
+  getSocmeds: async (params: any) => {
     const response = await axiosConfig.get<ResponseContentDto<SocmedType>>("/sosmed", {
-      params: {
-        // page: 1,
-        // page_size: 2,
-      },
+      params,
     });
     return response.data;
   },
