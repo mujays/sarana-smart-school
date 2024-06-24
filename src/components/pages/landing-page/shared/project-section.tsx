@@ -99,7 +99,7 @@ function ProjectSection({ kelas, card, description, listDescription, titleProjec
                 <p className="text-xl text-center font-bold text-white py-3">{project1?.data[0]?.title}</p>
                 <p className="text-center flex-grow overflow-auto text-white mb-10">{project1?.data[0]?.meta?.find((m) => m.name === "description")?.value || ""}</p>
               </div>
-              <div className="aspect-square">
+              <div className="aspect-square rounded-xl overflow-hidden">
                 <Image
                   width={500}
                   height={300}
@@ -108,7 +108,8 @@ function ProjectSection({ kelas, card, description, listDescription, titleProjec
                   src={project1?.data[0]?.url_non_hover || "/images/placeholder.png"}
                   style={{
                     width: "100%",
-                    height: "auto",
+                    height: "100%",
+                    objectFit: "cover",
                   }}
                 />
               </div>
@@ -137,9 +138,9 @@ function ProjectSection({ kelas, card, description, listDescription, titleProjec
                   />
                 </div>
                 <p className="text-xl text-center font-bold text-white py-3">{project2?.data[0]?.title}</p>
-                <p className="text-center flex-grow overflow-auto text-white mb-10">{project1?.data[0]?.meta?.find((m) => m.name === "description")?.value || ""}</p>
+                <p className="text-center flex-grow overflow-auto text-white mb-10">{project2?.data[0]?.meta?.find((m) => m.name === "description")?.value || ""}</p>
               </div>
-              <div className="aspect-square">
+              <div className="aspect-square rounded-xl overflow-hidden">
                 <Image
                   width={500}
                   height={300}
@@ -148,7 +149,8 @@ function ProjectSection({ kelas, card, description, listDescription, titleProjec
                   src={project2?.data[0]?.url_non_hover || "/images/placeholder.png"}
                   style={{
                     width: "100%",
-                    height: "auto",
+                    height: "100%",
+                    objectFit: "cover",
                   }}
                 />
               </div>
