@@ -53,7 +53,7 @@ function ProjectSection({ kelas, card, description, listDescription, titleProjec
   console.log({ project1, project2 });
 
   return (
-    <>
+    <div className="space-y-3 pt-16" id={dataClass?.path}>
       <Title title={titleProject} color="dark" />
       <div className="flex flex-col md:flex-row gap-10">
         <div className="lg:flex-1 basis-4/12 space-y-3">
@@ -123,7 +123,7 @@ function ProjectSection({ kelas, card, description, listDescription, titleProjec
           )}
           {project2?.data.length !== 0 && (
             <div className="relative group p-2 pb-10 rounded-xl shadow overflow-hidden">
-              <div className="absolute rounded-xl bottom-0 left-0 right-0 top-full group-hover:top-0 transition-all bg-orange-500 p-2">
+              <div className="absolute rounded-xl bottom-0 left-0 right-0 top-full group-hover:top-0 transition-all bg-orange-500 p-2 flex flex-col">
                 <div className="h-40 rounded-lg overflow-hidden mb-3">
                   <Image
                     width={500}
@@ -139,7 +139,7 @@ function ProjectSection({ kelas, card, description, listDescription, titleProjec
                   />
                 </div>
                 <p className="text-xl text-center font-bold text-white py-3">{project2?.data[0]?.title}</p>
-                <p className="text-center text-white text-sm mb-10">{project2?.data[0]?.meta?.find((m) => m.name === "description")?.value || ""}</p>
+                <p className="text-center flex-grow overflow-auto text-white mb-10">{project1?.data[0]?.meta?.find((m) => m.name === "description")?.value || ""}</p>
               </div>
               <div className="aspect-square">
                 <Image
@@ -163,7 +163,7 @@ function ProjectSection({ kelas, card, description, listDescription, titleProjec
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

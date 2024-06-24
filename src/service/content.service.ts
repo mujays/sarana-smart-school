@@ -48,7 +48,7 @@ const ContentsService = {
     const response = await axiosConfig.get<ResponseContentDto<BannerType>>("/banner", {
       params: {
         pages: "HOMEPAGE",
-        smp: "yes",
+        sd: "yes",
       },
     });
     return response.data;

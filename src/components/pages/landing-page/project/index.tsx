@@ -4,7 +4,7 @@ import { PROJECT_CLASS } from "@/configs/constants/project";
 
 function Project() {
   return (
-    <main className="py-20">
+    <main className="pb-20">
       <AppPadding className="space-y-10">
         <div className="space-y-5">
           {PROJECT_CLASS.map((project, i) => (
