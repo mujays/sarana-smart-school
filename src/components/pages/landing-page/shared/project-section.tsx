@@ -50,8 +50,6 @@ function ProjectSection({ kelas, card, description, listDescription, titleProjec
     },
   });
 
-  console.log({ project1, project2 });
-
   return (
     <div className="space-y-3 pt-16" id={dataClass?.path}>
       <Title title={titleProject} color="dark" />

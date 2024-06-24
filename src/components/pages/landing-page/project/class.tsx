@@ -20,8 +20,6 @@ function ClassProject() {
     },
   });
 
-  console.log({ projects });
-
   return (
     <AppPadding>
       <div className="flex flex-col lg:flex-row gap-5 my-5">
