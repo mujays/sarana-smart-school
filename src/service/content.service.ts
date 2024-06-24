@@ -1,5 +1,5 @@
 import axiosConfig from "@/configs/axios";
-import { ArticleType, BannerType, RequestArticleDto, ResponseContentDetailDto, ResponseContentDto, SocmedType } from "./types";
+import { ArticleType, BannerType, ProjectType, RequestArticleDto, ResponseContentDetailDto, ResponseContentDto, SocmedType } from "./types";
 import axios from "axios";
 
 const ContentsService = {
@@ -55,6 +55,12 @@ const ContentsService = {
   },
   getSocmeds: async (params: any) => {
     const response = await axiosConfig.get<ResponseContentDto<SocmedType>>("/sosmed", {
+      params,
+    });
+    return response.data;
+  },
+  getProject: async (params: any) => {
+    const response = await axiosConfig.get<ResponseContentDto<ProjectType>>("/project", {
       params,
     });
     return response.data;

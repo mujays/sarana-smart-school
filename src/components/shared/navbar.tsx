@@ -6,13 +6,14 @@ import { cn } from "@/lib/utils";
 import { MenuIcon, XIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const pathname = usePathname();
+  const router = useRouter();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -51,19 +52,36 @@ function Navbar() {
         )}
       >
         {MENU.map((menu) => (
-          <Link
-            onClick={toggleMenu}
-            href={menu.path}
-            className={cn(
-              "px-5 lg:px-3 xl:px-6 lg:h-full flex items-center text-primary py-3 lg:py-0 text-sm xl:text-base whitespace-nowrap font-medium cursor-pointer hover:bg-accent hover:text-accent-foreground transition-colors rounded-full lg:rounded-none",
-              {
-                "bg-primary text-primary-foreground": pathname === menu.path,
-              }
+          <div className="group relative h-full" key={menu.path}>
+            <Link
+              onClick={toggleMenu}
+              href={menu.path}
+              className={cn(
+                "px-5 lg:px-3 xl:px-6 lg:h-full flex items-center text-primary py-3 lg:py-0 text-sm xl:text-base whitespace-nowrap font-medium cursor-pointer hover:bg-accent hover:text-accent-foreground transition-colors rounded-full lg:rounded-none",
+                {
+                  "bg-primary text-primary-foreground": pathname === menu.path,
+                }
+              )}
+              key={menu.path}
+            >
+              {menu.label}
+            </Link>
+            {menu.children && (
+              <span className="absolute hidden group-hover:block top-[100%] left-0 bg-accent text-white w-[200%]">
+                {menu.children.map((data) => (
+                  <div
+                    key={data.path}
+                    onClick={(e) => {
+                      router.push(`${menu.path}${data.path}`);
+                    }}
+                    className="py-3 px-4 cursor-pointer hover:bg-primary border-b border-white block"
+                  >
+                    {data.label}
+                  </div>
+                ))}
+              </span>
             )}
-            key={menu.path}
-          >
-            {menu.label}
-          </Link>
+          </div>
         ))}
         <Button className="ml-3">Daftar Siswa Baru</Button>
       </div>

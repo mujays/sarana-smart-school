@@ -34,6 +34,26 @@ export type SocmedType = {
   thumbnail: string;
 };
 
+export type ProjectType = {
+  id: number;
+  tingkatan_id: number;
+  is_for_sd: boolean;
+  is_for_smp: boolean;
+  url_non_hover: string;
+  url_hover: string;
+  title: string;
+  slug: string;
+  body: string;
+  tahun_ajaran: string;
+  semester: number;
+  is_publish: number;
+  meta: {
+    id: number;
+    name: string;
+    value: string;
+  }[];
+};
+
 export type RequestArticleDto = {
   smp?: "yes";
   page?: number;
