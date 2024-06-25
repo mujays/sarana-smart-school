@@ -7,12 +7,13 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import { opacityAnimation } from "@/components/shared/animate/reveal";
 
-function SectionAbout({ children, title, withBackground = false }: { children: React.ReactNode; title: string; withBackground?: boolean }) {
+function SectionAbout({ children, title, withBackground = false, id }: { children: React.ReactNode; title: string; withBackground?: boolean; id: string }) {
   return (
     <section
       className={cn({
         "bg-accent text-accent-foreground": withBackground,
       })}
+      id={id}
     >
       <AppPadding className={cn("flex flex-col gap-10 md:gap-0 md:flex-row items-center py-10 md:py-[7rem]")}>
         <motion.div variants={opacityAnimation} initial="hidden" viewport={{ once: true }} whileInView="visible" className="basis-1/3">

@@ -58,8 +58,6 @@ export default function Homepage() {
     },
   });
 
-  console.log(socmedIg);
-
   return (
     <main className="pb-10">
       <div className="relative">
