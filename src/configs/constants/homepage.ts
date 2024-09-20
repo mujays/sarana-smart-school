@@ -21,36 +21,36 @@ export const MENU = [
       },
     ],
   },
-  {
-    path: "/proyek",
-    label: "Proyek",
-    children: [
-      {
-        path: "#kelas-1",
-        label: "kelas 1",
-      },
-      {
-        path: "#kelas-2",
-        label: "kelas 2",
-      },
-      {
-        path: "#kelas-3",
-        label: "kelas 3",
-      },
-      {
-        path: "#kelas-4",
-        label: "kelas 4",
-      },
-      {
-        path: "#kelas-5",
-        label: "kelas 5",
-      },
-      {
-        path: "#kelas-6",
-        label: "kelas 6",
-      },
-    ],
-  },
+  // {
+  //   path: "/proyek",
+  //   label: "Proyek",
+  //   children: [
+  //     {
+  //       path: "#kelas-1",
+  //       label: "kelas 1",
+  //     },
+  //     {
+  //       path: "#kelas-2",
+  //       label: "kelas 2",
+  //     },
+  //     {
+  //       path: "#kelas-3",
+  //       label: "kelas 3",
+  //     },
+  //     {
+  //       path: "#kelas-4",
+  //       label: "kelas 4",
+  //     },
+  //     {
+  //       path: "#kelas-5",
+  //       label: "kelas 5",
+  //     },
+  //     {
+  //       path: "#kelas-6",
+  //       label: "kelas 6",
+  //     },
+  //   ],
+  // },
   // {
   //   path: "/program",
   //   label: "Program",
