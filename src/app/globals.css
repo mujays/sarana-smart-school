@@ -34,7 +34,7 @@
     --destructive-foreground: #ffffff;
 
     --border: #789ecb;
-    --input: #000000;
+    --input: #a0a0a0;
     --ring: #789ecb;
 
     --radius: 0.5rem;
@@ -57,6 +57,10 @@
 @media (min-width: 1080px) {
   .bg-navbar {
     background: rgb(228, 219, 239);
-    background: linear-gradient(90deg, rgb(255, 255, 255) 50%, rgba(219, 239, 225, 1) 50%);
+    background: linear-gradient(
+      90deg,
+      rgb(255, 255, 255) 50%,
+      rgba(219, 239, 225, 1) 50%
+    );
   }
 }

@@ -1,5 +1,6 @@
 import QueryProvider from "@/providers/query-client";
 import "./globals.css";
+import { Toaster } from "@/components/shared/ui/sonner";
 
 export default function RootLayout({
   children,
@@ -9,6 +10,7 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body className="overflow-x-hidden">
+        <Toaster richColors position="top-right" />
         <QueryProvider>{children}</QueryProvider>
       </body>
     </html>

@@ -12,7 +12,7 @@ async function DetailNews({ params }: PropsComponent) {
   const id = params.id;
 
   // fetch data
-  const news = await ContentsService.getOneNews(id, {
+  const news = await ContentsService.getOneArticle(id, {
     with: "meta",
   });
 
@@ -41,7 +41,9 @@ async function DetailNews({ params }: PropsComponent) {
               }}
             />
           </div>
-          <div dangerouslySetInnerHTML={{ __html: news.data?.body as string }} />
+          <div
+            dangerouslySetInnerHTML={{ __html: news.data?.body as string }}
+          />
         </div>
       </article>
     </AppPadding>

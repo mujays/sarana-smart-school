@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
+import AppPadding from "./app-padding";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,75 +20,68 @@ function Navbar() {
     setIsOpen(!isOpen);
   };
   return (
-    <nav className="sticky h-14 top-0 bg-navbar z-[99] flex justify-between items-center lg:justify-center lg:items-stretch gap-4 px-5 lg:pl-20 lg:space-x-3">
-      <Link href="/" className="h-fit">
-        <Image
-          width={500}
-          height={300}
-          priority
-          alt="Logo SD"
-          src="/images/logo-sd.svg"
-          style={{
-            width: "170px",
-            height: "auto",
-          }}
-        />
-      </Link>
-      <div
-        onClick={toggleMenu}
-        className={cn("fixed bg-black/50 inset-0 lg:hidden transition-opacity", {
-          "opacity-100 visible": isOpen,
-          "opacity-0 invisible": !isOpen,
-        })}
-      >
-        <XIcon className="absolute right-5 top-5 text-background cursor-pointer" size={29} />
-      </div>
-      <div
-        className={cn(
-          "bg-background lg:bg-[#DBEFE1] fixed left-0 bottom-0 top-0 w-[50vw] lg:w-fit lg:static flex flex-col lg:flex-row lg:items-center p-5 lg:p-0 lg:pr-20 gap-2 lg:gap-0 transition-transform lg:transition-none duration-500 lg:translate-x-0",
-          {
-            "translate-x-0": isOpen,
-            "-translate-x-[50rem]": !isOpen,
-          }
-        )}
-      >
-        {MENU.map((menu) => (
-          <div className="group relative h-full" key={menu.path}>
+    <nav className="h-14 bg-background sticky top-0 z-50 border-b border-gray-300">
+      <AppPadding className="flex justify-between h-full items-center">
+        <Link href="/">
+          <Image
+            width={500}
+            height={300}
+            priority
+            alt="Logo SD"
+            src="/images/logo-sd.svg"
+            style={{
+              width: "170px",
+              height: "auto",
+            }}
+          />
+        </Link>
+        <div
+          onClick={toggleMenu}
+          className={cn(
+            "fixed bg-black/50 inset-0 lg:hidden transition-opacity",
+            {
+              "opacity-100 visible": isOpen,
+              "opacity-0 invisible": !isOpen,
+            }
+          )}
+        >
+          <XIcon
+            className="absolute right-5 top-5 text-background cursor-pointer"
+            size={29}
+          />
+        </div>
+        <div
+          className={cn(
+            "fixed transition-transform lg:transition-none duration-500 lg:static lg:items-center flex flex-col lg:flex-row bg-background p-10 lg:p-0 lg:justify-end gap-6 lg:gap-8 left-0 bottom-0 top-0 w-[50vw] lg:translate-x-0",
+            {
+              "translate-x-0": isOpen,
+              "-translate-x-[50rem]": !isOpen,
+            }
+          )}
+        >
+          {MENU.map((m) => (
             <Link
+              key={m.path}
+              href={m.path}
               onClick={toggleMenu}
-              href={menu.path}
               className={cn(
-                "px-5 lg:px-3 xl:px-6 lg:h-full flex items-center text-primary py-3 lg:py-0 text-sm xl:text-base whitespace-nowrap font-medium cursor-pointer hover:bg-accent hover:text-accent-foreground transition-colors rounded-full lg:rounded-none",
-                {
-                  "bg-primary text-primary-foreground": pathname === menu.path,
-                }
+                "whitespace-nowrap lg:text-base text-primary drop-shadow transition-colors hover:text-secondary",
+                { "text-secondary": pathname === m.path }
               )}
-              key={menu.path}
             >
-              {menu.label}
+              {m.label}
             </Link>
-            {menu.children && (
-              <span className="absolute hidden group-hover:block top-[100%] left-0 bg-accent text-white w-[200%]">
-                {menu.children.map((data) => (
-                  <div
-                    key={data.path}
-                    onClick={(e) => {
-                      router.push(`${menu.path}${data.path}`);
-                    }}
-                    className="py-3 px-4 cursor-pointer hover:bg-primary border-b border-white block"
-                  >
-                    {data.label}
-                  </div>
-                ))}
-              </span>
-            )}
-          </div>
-        ))}
-        <Button className="ml-3">Daftar Siswa Baru</Button>
-      </div>
-      <div className="block lg:hidden cursor-pointer" onClick={toggleMenu}>
-        <MenuIcon />
-      </div>
+          ))}
+          <Button asChild variant="default">
+            <Link target="_blank" href="https://wali.smart.sch.id/">
+              Login Sebagai Wali
+            </Link>
+          </Button>
+        </div>
+        <div className="block lg:hidden cursor-pointer" onClick={toggleMenu}>
+          <MenuIcon />
+        </div>
+      </AppPadding>
     </nav>
   );
 }
