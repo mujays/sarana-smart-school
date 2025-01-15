@@ -1,4 +1,11 @@
-import { Carousel, CarouselApi, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/shared/carousel";
+import {
+  Carousel,
+  CarouselApi,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/shared/carousel";
 import { cn } from "@/lib/utils";
 import ContentsService from "@/service/content.service";
 import { useQuery } from "@tanstack/react-query";
@@ -37,7 +44,7 @@ function Banner() {
         <CarouselContent>
           {banner?.data.length ? (
             banner?.data.map((banner, index) => (
-              <CarouselItem key={index} className="h-[30vh] md:h-[40vh] lg:h-[50vh]">
+              <CarouselItem key={index} className="h-fit">
                 <Image
                   width={500}
                   height={300}
@@ -48,14 +55,14 @@ function Banner() {
                   style={{
                     width: "100%",
                     height: "100%",
-                    objectFit: "cover",
+                    objectFit: "contain",
                     objectPosition: "center",
                   }}
                 />
               </CarouselItem>
             ))
           ) : (
-            <CarouselItem className="h-[30vh] md:h-[40vh] lg:h-[50vh]">
+            <CarouselItem className="h-fit">
               <Image
                 width={500}
                 height={300}
@@ -80,9 +87,13 @@ function Banner() {
         {banner?.data.map((b, i) => (
           <div
             key={b.id}
-            className={cn("rounded-full border text-sm w-8 h-8 flex justify-center items-center cursor-pointer", {
-              "bg-primary text-primary-foreground": b.id === banner.data[current].id,
-            })}
+            className={cn(
+              "rounded-full border text-sm w-8 h-8 flex justify-center items-center cursor-pointer",
+              {
+                "bg-primary text-primary-foreground":
+                  b.id === banner.data[current].id,
+              }
+            )}
           >
             {i + 1}
           </div>

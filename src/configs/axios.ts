@@ -5,5 +5,8 @@ const API_VERSION = "/api/v1";
 const axiosConfig = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL + API_VERSION,
 });
+export const axiosConfigKesiswaan = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL_KESISWAAN + API_VERSION,
+});
 
 export default axiosConfig;

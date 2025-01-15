@@ -22,7 +22,12 @@ function Publikasi() {
   const fetchNews = async ({ pageParam = "" }) => {
     if (!pageParam || debouncedValue) {
       const res = await axios.get(
-        process.env.NEXT_PUBLIC_API_BASE_URL + `/api/v1/content?sd=yes${!!debouncedValue ? `&search=${debouncedValue}&page=1&page_size=100&publish=1` : ""}`
+        process.env.NEXT_PUBLIC_API_BASE_URL +
+          `/api/v1/article?sd=yes${
+            !!debouncedValue
+              ? `&search=${debouncedValue}&page=1&page_size=100&publish=1`
+              : ""
+          }`
       );
       return res.data;
     } else {
@@ -31,12 +36,14 @@ function Publikasi() {
     }
   };
 
-  // @ts-ignore
-  const { data, fetchNextPage, isError, isFetching, refetch, isLoading } = useInfiniteQuery({
-    queryKey: ["news", debouncedValue],
-    queryFn: fetchNews,
-    getNextPageParam: (lastPage, pages) => (debouncedValue ? null : lastPage.meta.next_page_url),
-  });
+  const { data, fetchNextPage, isError, isFetching, refetch, isLoading } =
+    // @ts-ignore
+    useInfiniteQuery({
+      queryKey: ["news", debouncedValue],
+      queryFn: fetchNews,
+      getNextPageParam: (lastPage, pages) =>
+        debouncedValue ? null : lastPage.meta.next_page_url,
+    });
 
   //* handle change search
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -67,7 +74,11 @@ function Publikasi() {
   return (
     <main className="py-20">
       <AppPadding>
-        <Title title="Berita Terbaru Dari SD Smart School" isCenter color="primary" />
+        <Title
+          title="Berita Terbaru Dari SD Smart School"
+          isCenter
+          color="primary"
+        />
         <div className="flex justify-end mt-10">
           <InputSearch placeholder="Search" onChange={handleChange} />
         </div>
@@ -96,8 +107,16 @@ function Publikasi() {
             <div className="flex flex-wrap justify-center gap-5 mb-8 mt-10">
               {data.pages?.map((data) =>
                 data.data.map((art: ArticleType) => (
-                  <div className="flex-1 basis-11/12 md:basis-7/12 lg:basis-4/12 xl:basis-3/12" key={art.id}>
-                    <CardNews date={art.created_at} href={`/publikasi/${art.slug}`} src={art.url} title={art.title} />
+                  <div
+                    className="flex-1 basis-11/12 md:basis-7/12 lg:basis-4/12 xl:basis-3/12"
+                    key={art.id}
+                  >
+                    <CardNews
+                      date={art.created_at}
+                      href={`/publikasi/${art.slug}`}
+                      src={art.url}
+                      title={art.title}
+                    />
                   </div>
                 ))
               )}
@@ -106,7 +125,9 @@ function Publikasi() {
         )}
       </AppPadding>
       <div id="Load" ref={loadRef} className="flex justify-center mt-10">
-        {isFetching && data?.pages?.length && <Loader2Icon className="w-10 h-10 animate-spin text-primary" />}
+        {isFetching && data?.pages?.length && (
+          <Loader2Icon className="w-10 h-10 animate-spin text-primary" />
+        )}
       </div>
     </main>
   );
