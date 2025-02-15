@@ -80,3 +80,26 @@ export type ResponseContentDetailDto<T> = {
   code: number;
   data: T;
 };
+
+export type TPpdb = {
+  id: number;
+  nama_siswa: string;
+  tanggal_lahir: string;
+  alamat: string;
+  types: string;
+  sekolah_asal: string;
+  nama_orang_tua: string;
+  no_hp_orang_tua: string;
+  reason: string;
+  know_from: string;
+  biaya_pendaftaran: null | string;
+  bukti_pembayaran: null | string;
+  payment_method: null | string;
+  token: string;
+  status: string;
+  is_past_to_test: boolean;
+  payment_at: null | string;
+  is_lunas: boolean;
+  created_at: string;
+  updated_at: string;
+};
