@@ -1,4 +1,5 @@
 import AppPadding from "@/components/shared/app-padding";
+import { PhoneCallIcon } from "lucide-react";
 import Image from "next/image";
 
 function Footer() {
@@ -53,18 +54,8 @@ function Footer() {
                   <p className="text-sm">Telpon : (021) 7888 5945</p>
                 </div>
                 <div className="flex gap-3 items-center">
-                  <Image
-                    width={50}
-                    height={30}
-                    priority
-                    alt="FAX"
-                    src="/images/icon/envelope.svg"
-                    style={{
-                      width: "20px",
-                      height: "auto",
-                    }}
-                  />
-                  <p className="text-sm">FAX : (021) 787 2540</p>
+                  <PhoneCallIcon className="w-5 h-5" />
+                  <p className="text-sm">Whatsapp : 0895-2983-6939</p>
                 </div>
                 <div className="flex gap-3 items-center">
                   <Image
@@ -78,7 +69,9 @@ function Footer() {
                       height: "auto",
                     }}
                   />
-                  <p className="text-sm">Email : smartschooljagakarsa@gmail.com</p>
+                  <p className="text-sm">
+                    Email : smartschooljagakarsa@gmail.com
+                  </p>
                 </div>
               </div>
               <div className="space-y-5 w-full">
@@ -115,7 +108,10 @@ function Footer() {
             </div>
           </AppPadding>
           <div className="h-[1px] bg-white mx-20 mt-10"></div>
-          <p className="mx-20 text-white mt-5">Copyright {new Date().getFullYear()} SD Smart School. All rights reserved.</p>
+          <p className="mx-20 text-white mt-5">
+            Copyright {new Date().getFullYear()} SD Smart School. All rights
+            reserved.
+          </p>
         </footer>
       </AppPadding>
       <div className="h-14 bg-black"></div>

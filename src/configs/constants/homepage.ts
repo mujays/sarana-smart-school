@@ -59,10 +59,10 @@ export const MENU = [
     path: "/publikasi",
     label: "Publikasi",
   },
-  {
-    path: "/informasi",
-    label: "Informasi",
-  },
+  // {
+  //   path: "/informasi",
+  //   label: "Informasi",
+  // },
 ];
 
 export const BANNER = [

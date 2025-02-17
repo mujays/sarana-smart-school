@@ -3,9 +3,22 @@ import Image from "next/image";
 import Link from "next/link";
 import "moment/locale/id";
 
-function CardNews({ src, title, href, date }: { src: string; title: string; href: string; date: Date }) {
+function CardNews({
+  src,
+  title,
+  href,
+  date,
+}: {
+  src: string;
+  title: string;
+  href: string;
+  date: Date;
+}) {
   return (
-    <Link href={href} className="bg-primary-foreground block border border-gray-300 rounded-md  space-y-2">
+    <Link
+      href={href}
+      className="bg-primary-foreground block border border-gray-300 rounded-md  space-y-2"
+    >
       <div className="aspect-video">
         <Image
           width={500}
