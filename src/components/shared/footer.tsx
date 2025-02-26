@@ -1,6 +1,7 @@
 import AppPadding from "@/components/shared/app-padding";
 import { PhoneCallIcon } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 function Footer() {
   return (
@@ -76,7 +77,11 @@ function Footer() {
               </div>
               <div className="space-y-5 w-full">
                 <p className="font-medium">Social Media Kami</p>
-                <div className="flex gap-3 items-center">
+                <Link
+                  target="_blank"
+                  href="https://www.youtube.com/@ssmartschool"
+                  className="flex gap-3 items-center"
+                >
                   <Image
                     width={50}
                     height={30}
@@ -89,8 +94,12 @@ function Footer() {
                     }}
                   />
                   <p className="text-sm">Instagram</p>
-                </div>
-                <div className="flex gap-3 items-center">
+                </Link>
+                <Link
+                  target="_blank"
+                  href="https://www.instagram.com/sdsmartschool"
+                  className="flex gap-3 items-center"
+                >
                   <Image
                     width={50}
                     height={30}
@@ -103,7 +112,7 @@ function Footer() {
                     }}
                   />
                   <p className="text-sm">Youtube</p>
-                </div>
+                </Link>
               </div>
             </div>
           </AppPadding>
