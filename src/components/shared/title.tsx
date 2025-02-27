@@ -1,8 +1,16 @@
 import { cn } from "@/lib/utils";
 
-function Title({ title, color = "primary", isCenter = false }: { title: string; color?: "base" | "primary" | "dark"; isCenter?: boolean }) {
+function Title({
+  title,
+  color = "primary",
+  isCenter = false,
+}: {
+  title: string;
+  color?: "base" | "primary" | "dark";
+  isCenter?: boolean;
+}) {
   return (
-    <p
+    <h2
       className={cn("text-2xl text-primary font-bold", {
         "text-primary": color === "primary",
         "text-primary-foreground": color === "base",
@@ -11,7 +19,7 @@ function Title({ title, color = "primary", isCenter = false }: { title: string; 
       })}
     >
       {title}
-    </p>
+    </h2>
   );
 }
 
