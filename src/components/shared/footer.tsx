@@ -79,7 +79,7 @@ function Footer() {
                 <p className="font-medium">Social Media Kami</p>
                 <Link
                   target="_blank"
-                  href="https://www.youtube.com/@ssmartschool"
+                  href="https://www.instagram.com/sdsmartschool"
                   className="flex gap-3 items-center"
                 >
                   <Image
@@ -97,7 +97,7 @@ function Footer() {
                 </Link>
                 <Link
                   target="_blank"
-                  href="https://www.instagram.com/sdsmartschool"
+                  href="https://www.youtube.com/@ssmartschool"
                   className="flex gap-3 items-center"
                 >
                   <Image

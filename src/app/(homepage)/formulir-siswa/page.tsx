@@ -15,13 +15,25 @@ async function Page({
   params: { slug: string };
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
+  const token = searchParams?.token;
+  const isPpdb = !!searchParams?.ppdb;
+
+  if (!token || typeof token !== "string") {
+    return notFound();
+  }
+
   try {
-    const token = searchParams?.token;
-    const res = await axiosConfigKesiswaan.get("/form-siswa/public/" + token);
-    const siswa = res.data?.data as TPpdb;
-    return <FormulirSiswa siswa={siswa} />;
+    const endpoint = isPpdb
+      ? `/form-siswa/public/${token}`
+      : `/form-pindahan/public/${token}`;
+
+    const { data } = await axiosConfigKesiswaan.get(endpoint);
+    const siswa = data?.data as TPpdb;
+
+    return <FormulirSiswa isPpdb={isPpdb} siswa={siswa} formId={siswa?.id} />;
   } catch (error) {
-    notFound();
+    console.log({ error });
+    return notFound();
   }
 }
 

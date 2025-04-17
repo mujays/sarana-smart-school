@@ -85,6 +85,7 @@ export type TPpdb = {
   id: number;
   nama_siswa: string;
   tanggal_lahir: string;
+  email_orang_tua: string;
   alamat: string;
   types: string;
   sekolah_asal: string;
@@ -100,6 +101,8 @@ export type TPpdb = {
   is_past_to_test: boolean;
   payment_at: null | string;
   is_lunas: boolean;
+  data_siswa: any;
+  data_ortu: any;
   created_at: string;
   updated_at: string;
 };

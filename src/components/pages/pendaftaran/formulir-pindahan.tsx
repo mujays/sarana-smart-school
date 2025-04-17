@@ -29,8 +29,15 @@ import { axiosConfigKesiswaan } from "@/configs/axios";
 import moment from "moment";
 import "moment/locale/id";
 import { toast } from "sonner";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/shared/ui/select";
 
-function Pendaftaran() {
+function FormulirPindahan() {
   const [loading, setLoading] = useState(false);
 
   const isDev = process.env.NODE_ENV === "development";
@@ -50,6 +57,8 @@ function Pendaftaran() {
     sekolah_asal: z.string().min(1, "sekolah asal harus diisi"),
     nama_orang_tua: z.string().min(1, "nama wali murid harus diisi"),
     know_from: z.string().min(1, "Info harus diisi"),
+    npsn_asal: z.string().min(1, "NPSN Sekolah Asal"),
+    tingkatan_id: z.string().min(1, "Kelas Tujuan"),
     reason: z.string().min(1, "alasan harus diisi"),
   });
 
@@ -65,19 +74,21 @@ function Pendaftaran() {
       nama_orang_tua: isDev ? "WALI_NAME" : "",
       know_from: isDev ? "INFO" : "",
       reason: isDev ? "REASON" : "",
+      tingkatan_id: "",
+      npsn_asal: isDev ? "000000" : "",
     },
   });
 
   const onSubmit = async (val: any) => {
     try {
       setLoading(true);
-      const response = await axiosConfigKesiswaan.post("/form-siswa", {
+      const response = await axiosConfigKesiswaan.post("/form-pindahan", {
         ...val,
         types: "SD",
         status: "PENDING_PAYMENT",
         tanggal_lahir: moment(val.tanggal_lahir).format("YYYY-MM-DD"),
       });
-      toast.success("Pendaftaran Peserta Didik Baru Berhasil!");
+      toast.success("Pendaftaran Siswa Berhasil!");
       form.reset();
       return response.data;
     } catch (error) {
@@ -102,8 +113,7 @@ function Pendaftaran() {
           }}
         />
         <p className="text-center font-semibold text-2xl mb-5">
-          Buku Tamu PPDB {new Date().getFullYear()} -{" "}
-          {new Date().getFullYear() + 1}
+          Formulir Siswa Pindahan
         </p>
       </div>
 
@@ -200,9 +210,6 @@ function Pendaftaran() {
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel>Email Wali</FormLabel>
-                  <FormDescription className="!mt-0">
-                    Pastikan email anda aktif
-                  </FormDescription>
                   <FormControl>
                     <Input type="email" placeholder="Email" {...field} />
                   </FormControl>
@@ -235,34 +242,69 @@ function Pendaftaran() {
                 control={form.control}
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel>Nama Sekolah Asal Calon Peserta Didik</FormLabel>
+                    <FormLabel>Sekolah Asal</FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder="TK, RA, Home Schooling, dll"
-                        {...field}
-                      />
+                      <Input placeholder="Sekolah Asal" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
               <FormField
-                name="know_from"
+                name="npsn_asal"
                 control={form.control}
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel>Mengetahui Info Dari</FormLabel>
+                    <FormLabel>NPSN Sekolah Asal</FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder="Sosial Media, Teman, dll"
-                        {...field}
-                      />
+                      <Input placeholder="NPSN Sekolah Asal" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
             </div>
+            <FormField
+              control={form.control}
+              name={`tingkatan_id`}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Kelas Tujuan</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Pilih Kelas Tujuan" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="1">Kelas 1</SelectItem>
+                      <SelectItem value="2">Kelas 2</SelectItem>
+                      <SelectItem value="3">Kelas 3</SelectItem>
+                      <SelectItem value="4">Kelas 4</SelectItem>
+                      <SelectItem value="5">Kelas 5</SelectItem>
+                      <SelectItem value="6">Kelas 6</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              name="know_from"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>Mengetahui Info Dari</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Sosial Media, Teman, dll" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
             <FormField
               name="reason"
@@ -288,4 +330,4 @@ function Pendaftaran() {
   );
 }
 
-export default Pendaftaran;
+export default FormulirPindahan;
