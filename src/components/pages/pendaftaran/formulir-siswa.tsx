@@ -38,6 +38,8 @@ import { Textarea } from "@/components/shared/ui/textarea";
 import { TPpdb } from "@/service/types";
 import { RadioGroup, RadioGroupItem } from "@/components/shared/ui/radio-group";
 import { useRouter } from "next/navigation";
+import Dropfile from "@/components/shared/dropfile";
+import FileItem from "@/components/shared/file-item";
 
 const formSchema = z.object({
   nama: z.string().min(1, "Nama harus diisi"),
@@ -77,7 +79,7 @@ const formSchema = z.object({
   // url_kia: z.string().min(1, "KIA harus diisi"),
   // url_akta: z.string().min(1, "Akte harus diisi"),
   // url_kk: z.string().min(1, "Kartu keluarga harus diisi"),
-  // avatar: z.string().min(1, "Foto ananda harus diisi"),
+  avatar: z.string().min(1, "Foto ananda harus diisi"),
   gaji: z.number(),
   // Orang Tua
   nama_ayah: z.string().min(1, "Nama harus diisi"),
@@ -128,6 +130,7 @@ function FormulirSiswa({
   isPpdb: boolean;
 }) {
   const [loading, setLoading] = useState(false);
+  const [fileAvatar, setFileAvatar] = useState<File | null>(null);
 
   const router = useRouter();
   const isDev = process.env.NODE_ENV === "development";
@@ -168,7 +171,7 @@ function FormulirSiswa({
       // url_kia: "",
       // url_kk: "",
       // url_akta: "",
-      // avatar: "",
+      avatar: "",
       telp_rumah: isDev ? "0211234567" : "",
 
       // orang tua
@@ -247,7 +250,7 @@ function FormulirSiswa({
             // url_kia: val.url_kia,
             // url_kk: val.url_kk,
             // url_akta: val.url_akta,
-            // avatar: val.avatar,
+            avatar: val.avatar,
             tempat_lahir: val.tempat_lahir,
             jenis_kelamin: val.jenis_kelamin,
             keluarga: [
@@ -764,6 +767,40 @@ function FormulirSiswa({
                   </FormItem>
                 )}
               />
+
+              <div className="space-y-2 border-t border-gray-300 pt-3">
+                <p className="font-medium text-sm">Foto Ananda</p>
+                {!fileAvatar ? (
+                  <Dropfile
+                    id="avatar"
+                    description="PNG, JPG dan JPEG"
+                    type="transparent"
+                    onUpload={(file) => {
+                      setFileAvatar(file);
+                    }}
+                    accept=".jpg,.jpeg,.png"
+                    mimeType={["image/jpeg", "image/png", "image/jpeg"]}
+                  />
+                ) : (
+                  <FileItem
+                    url={URL.createObjectURL(fileAvatar)}
+                    onSuccess={(url) => {
+                      form.setValue("avatar", url);
+                      form.clearErrors("avatar");
+                    }}
+                    file={fileAvatar}
+                    onDelete={() => {
+                      setFileAvatar(null);
+                      form.setValue("avatar", "");
+                    }}
+                  />
+                )}
+                {form.formState.errors.avatar && (
+                  <p className="text-red text-sm text-red-500">
+                    {form?.formState?.errors?.avatar.message}
+                  </p>
+                )}
+              </div>
             </div>
 
             <div className="p-5 rounded-lg border border-gray-300 space-y-3">
