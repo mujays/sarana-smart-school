@@ -73,8 +73,6 @@ function DaftarUlang({ siswa, isPpdb }: { siswa: TPpdb; isPpdb: boolean }) {
     return null;
   }, [siswa]);
 
-  console.log({ dataAyah, dataIbu, dataSaudara });
-
   const router = useRouter();
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -96,6 +94,7 @@ function DaftarUlang({ siswa, isPpdb }: { siswa: TPpdb; isPpdb: boolean }) {
         `${endpoinType}/public/${siswa.id}`,
         {
           types: "SD",
+          kelas_id: siswa.kelas_id,
           siswa: {
             nama: siswa?.data_siswa?.nama || "",
             tanggal_lahir: siswa?.data_siswa?.tanggal_lahir || "",
@@ -124,6 +123,7 @@ function DaftarUlang({ siswa, isPpdb }: { siswa: TPpdb; isPpdb: boolean }) {
             avatar: siswa?.data_siswa?.avatar,
             tempat_lahir: siswa?.data_siswa?.tempat_lahir,
             jenis_kelamin: siswa?.data_siswa?.jenis_kelamin,
+
             keluarga: [
               {
                 ...dataAyah,
