@@ -97,6 +97,7 @@ export type TPpdb = {
   bukti_pembayaran: null | string;
   payment_method: null | string;
   token: string;
+  kelas_id: number;
   status: string;
   is_past_to_test: boolean;
   payment_at: null | string;

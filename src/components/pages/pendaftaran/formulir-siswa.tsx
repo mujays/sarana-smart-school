@@ -38,8 +38,8 @@ import { Textarea } from "@/components/shared/ui/textarea";
 import { TPpdb } from "@/service/types";
 import { RadioGroup, RadioGroupItem } from "@/components/shared/ui/radio-group";
 import { useRouter } from "next/navigation";
-import Dropfile from "@/components/shared/dropfile";
 import FileItem from "@/components/shared/file-item";
+import Dropfile from "@/components/shared/dropfile";
 
 const formSchema = z.object({
   nama: z.string().min(1, "Nama harus diisi"),

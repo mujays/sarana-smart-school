@@ -120,7 +120,6 @@ function DaftarUlang({ siswa, isPpdb }: { siswa: TPpdb; isPpdb: boolean }) {
             url_kia: val.url_kia,
             url_kk: val.url_kk,
             url_akta: val.url_akta,
-            avatar: siswa?.data_siswa?.avatar,
             tempat_lahir: siswa?.data_siswa?.tempat_lahir,
             jenis_kelamin: siswa?.data_siswa?.jenis_kelamin,
 
