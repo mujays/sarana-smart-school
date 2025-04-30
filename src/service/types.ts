@@ -103,6 +103,7 @@ export type TPpdb = {
   is_lunas: boolean;
   data_siswa: any;
   data_ortu: any;
+  kelas_id: number;
   created_at: string;
   updated_at: string;
 };

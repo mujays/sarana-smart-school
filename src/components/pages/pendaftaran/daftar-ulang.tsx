@@ -30,7 +30,6 @@ const formSchema = z.object({
   url_kia: z.string().min(1, "KIA harus diisi"),
   url_akta: z.string().min(1, "Akte harus diisi"),
   url_kk: z.string().min(1, "Kartu keluarga harus diisi"),
-  avatar: z.string().min(1, "Foto ananda harus diisi"),
   ktp_ayah: z.string().min(1, "KTP harus diisi"),
   ktp_ibu: z.string().min(1, "KTP harus diisi"),
   email: z.string().email("email tidak valid").min(1, "Email harus diisi"),
@@ -39,7 +38,6 @@ const formSchema = z.object({
 
 function DaftarUlang({ siswa, isPpdb }: { siswa: TPpdb; isPpdb: boolean }) {
   const [loading, setLoading] = useState(false);
-  const [fileAvatar, setFileAvatar] = useState<File | null>(null);
   const [fileAkte, setFileAkte] = useState<File | null>(null);
   const [fileKia, setFileKia] = useState<File | null>(null);
   const [fileKk, setFileKk] = useState<File | null>(null);
@@ -82,7 +80,6 @@ function DaftarUlang({ siswa, isPpdb }: { siswa: TPpdb; isPpdb: boolean }) {
       url_kia: "",
       url_kk: "",
       url_akta: "",
-      avatar: "",
       ktp_ayah: "",
       ktp_ibu: "",
       email: "",
@@ -97,6 +94,7 @@ function DaftarUlang({ siswa, isPpdb }: { siswa: TPpdb; isPpdb: boolean }) {
         `${endpoinType}/public/${siswa.id}`,
         {
           types: "SD",
+          kelas_id: siswa.kelas_id,
           siswa: {
             nama: siswa?.data_siswa?.nama || "",
             tanggal_lahir: siswa?.data_siswa?.tanggal_lahir || "",
@@ -122,9 +120,9 @@ function DaftarUlang({ siswa, isPpdb }: { siswa: TPpdb; isPpdb: boolean }) {
             url_kia: val.url_kia,
             url_kk: val.url_kk,
             url_akta: val.url_akta,
-            avatar: val.avatar,
             tempat_lahir: siswa?.data_siswa?.tempat_lahir,
             jenis_kelamin: siswa?.data_siswa?.jenis_kelamin,
+
             keluarga: [
               {
                 ...dataAyah,
@@ -189,40 +187,6 @@ function DaftarUlang({ siswa, isPpdb }: { siswa: TPpdb; isPpdb: boolean }) {
               <p className="text-center font-semibold text-xl mb-2">
                 Data Siswa
               </p>
-
-              <div className="space-y-2 border-t border-gray-300 pt-3">
-                <p className="font-medium text-sm">Foto Ananda</p>
-                {!fileAvatar ? (
-                  <Dropfile
-                    id="avatar"
-                    description="PNG, JPG dan JPEG"
-                    type="transparent"
-                    onUpload={(file) => {
-                      setFileAvatar(file);
-                    }}
-                    accept=".jpg,.jpeg,.png"
-                    mimeType={["image/jpeg", "image/png", "image/jpeg"]}
-                  />
-                ) : (
-                  <FileItem
-                    url={URL.createObjectURL(fileAvatar)}
-                    onSuccess={(url) => {
-                      form.setValue("avatar", url);
-                      form.clearErrors("avatar");
-                    }}
-                    file={fileAvatar}
-                    onDelete={() => {
-                      setFileAvatar(null);
-                      form.setValue("avatar", "");
-                    }}
-                  />
-                )}
-                {form.formState.errors.avatar && (
-                  <p className="text-red text-sm text-red-500">
-                    {form?.formState?.errors?.avatar.message}
-                  </p>
-                )}
-              </div>
 
               <div className="space-y-2 border-t border-gray-300 pt-3">
                 <p className="font-medium text-sm">Akte Kelahiran</p>

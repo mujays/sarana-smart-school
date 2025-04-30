@@ -32,7 +32,6 @@ async function Page({
 
     return <FormulirSiswa isPpdb={isPpdb} siswa={siswa} formId={siswa?.id} />;
   } catch (error) {
-    console.log({ error });
     return notFound();
   }
 }
