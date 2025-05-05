@@ -142,7 +142,11 @@ export default function Homepage() {
               akademik maupun emosional.
             </p>
             <div className="flex justify-center">
-              <Button>Pelajari Lebih Lanjut</Button>
+              <Button asChild>
+                <Link href="https://www.pendidikancerdas.org/" target="_blank">
+                  Pelajari Lebih Lanjut
+                </Link>
+              </Button>
             </div>
           </motion.div>
         </section>
@@ -208,23 +212,22 @@ export default function Homepage() {
           <p className="text-2xl text-primary-foreground text-center">
             Pengalaman Murid dan Guru di Smart School
           </p>
-          <div className="flex gap-5 py-3">
-            <Button className="text-primary-foreground" variant="outline">
-              Kegiatan Murid Smart
-            </Button>
-            <Button>Kegiatan Guru Smart</Button>
-          </div>
+
           <div className="flex flex-wrap justify-center gap-8">
-            {socmedIg?.data
-              .filter((s) => s.sosial_media === "INSTAGRAM")
-              .map((s) => (
-                <div
-                  key={s.id}
-                  style={{ display: "flex", justifyContent: "center" }}
-                >
-                  <InstagramEmbed url={s.url} width={"100%"} />
-                </div>
-              ))}
+            {socmedIg?.data.length ? (
+              socmedIg?.data
+                .filter((s) => s.sosial_media === "INSTAGRAM")
+                .map((s) => (
+                  <div
+                    key={s.id}
+                    style={{ display: "flex", justifyContent: "center" }}
+                  >
+                    <InstagramEmbed url={s.url} width={"100%"} />
+                  </div>
+                ))
+            ) : (
+              <div className="text-white">Belum ada kegiatan</div>
+            )}
           </div>
         </AppPadding>
       </section>
