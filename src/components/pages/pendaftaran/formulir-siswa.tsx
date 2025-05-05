@@ -43,7 +43,7 @@ import Dropfile from "@/components/shared/dropfile";
 
 const formSchema = z.object({
   nama: z.string().min(1, "Nama harus diisi"),
-  nik: z.string().min(1, "NIK harus diisi"),
+  nik: z.string().min(16, "NIK minimal 16 digit"),
   ibu_kandung: z.string().min(1, "Nama ibu kandung harus diisi"),
   agama: z.string().min(1, "Agama harus diisi"),
   tanggal_lahir: z.date({ required_error: "Tanggal lahir harus diisi" }),
@@ -90,7 +90,7 @@ const formSchema = z.object({
   email_ayah: z.string().min(1, "Email harus diisi"),
   agama_ayah: z.string().min(1, "Agama harus diisi"),
   // ktp_ayah: z.string().min(1, "KTP harus diisi"),
-  nik_ayah: z.string().min(1, "NIK harus diisi"),
+  nik_ayah: z.string().min(16, "NIK minimal 16 digit"),
   suku_ayah: z.string().min(1, "Suku harus diisi"),
   alamat_ayah: z.string().min(1, "Alamat harus diisi"),
 
@@ -103,7 +103,7 @@ const formSchema = z.object({
   email_ibu: z.string().min(1, "Email harus diisi"),
   agama_ibu: z.string().min(1, "Agama harus diisi"),
   // ktp_ibu: z.string().min(1, "KTP harus diisi"),
-  nik_ibu: z.string().min(1, "NIK harus diisi"),
+  nik_ibu: z.string().min(16, "NIK minimal 16 digit"),
   suku_ibu: z.string().min(1, "Suku harus diisi"),
   alamat_ibu: z.string().min(1, "Alamat harus diisi"),
 
@@ -386,7 +386,17 @@ function FormulirSiswa({
                     <FormItem className="w-full">
                       <FormLabel>NIK Ananda</FormLabel>
                       <FormControl>
-                        <Input placeholder="NIK" {...field} />
+                        <Input
+                          placeholder="NIK"
+                          {...field}
+                          onChange={(e) => {
+                            const onlyNums = e.target.value.replace(
+                              /[^0-9]/g,
+                              ""
+                            );
+                            field.onChange(onlyNums);
+                          }}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -833,7 +843,17 @@ function FormulirSiswa({
                     <FormItem className="w-full">
                       <FormLabel>NPSN (Nomor Pokok Sekolah Nasional)</FormLabel>
                       <FormControl>
-                        <Input placeholder="NPSN" {...field} />
+                        <Input
+                          placeholder="NPSN"
+                          {...field}
+                          onChange={(e) => {
+                            const onlyNums = e.target.value.replace(
+                              /[^0-9]/g,
+                              ""
+                            );
+                            field.onChange(onlyNums);
+                          }}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -1154,7 +1174,17 @@ function FormulirSiswa({
                     <FormItem className="w-full">
                       <FormLabel>NIK</FormLabel>
                       <FormControl>
-                        <Input placeholder="NIK" {...field} />
+                        <Input
+                          placeholder="NIK"
+                          {...field}
+                          onChange={(e) => {
+                            const onlyNums = e.target.value.replace(
+                              /[^0-9]/g,
+                              ""
+                            );
+                            field.onChange(onlyNums);
+                          }}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -1365,7 +1395,17 @@ function FormulirSiswa({
                     <FormItem className="w-full">
                       <FormLabel>NIK</FormLabel>
                       <FormControl>
-                        <Input placeholder="NIK" {...field} />
+                        <Input
+                          placeholder="NIK"
+                          {...field}
+                          onChange={(e) => {
+                            const onlyNums = e.target.value.replace(
+                              /[^0-9]/g,
+                              ""
+                            );
+                            field.onChange(onlyNums);
+                          }}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
