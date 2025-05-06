@@ -117,6 +117,7 @@ function DaftarUlang({ siswa, isPpdb }: { siswa: TPpdb; isPpdb: boolean }) {
             berat_badan: siswa?.data_siswa?.berat_badan || "",
             lingkar_kepala: siswa?.data_siswa?.lingkar_kepala || "",
             gol_darah: siswa?.data_siswa?.gol_darah || "",
+            avatar: siswa?.data_siswa?.avatar,
             url_kia: val.url_kia,
             url_kk: val.url_kk,
             url_akta: val.url_akta,

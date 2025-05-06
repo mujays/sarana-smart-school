@@ -257,7 +257,17 @@ function FormulirPindahan() {
                   <FormItem className="w-full">
                     <FormLabel>NPSN Sekolah Asal</FormLabel>
                     <FormControl>
-                      <Input placeholder="NPSN Sekolah Asal" {...field} />
+                      <Input
+                        placeholder="NPSN Sekolah Asal"
+                        {...field}
+                        onChange={(e) => {
+                          const onlyNums = e.target.value.replace(
+                            /[^0-9]/g,
+                            ""
+                          );
+                          field.onChange(onlyNums);
+                        }}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

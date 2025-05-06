@@ -86,6 +86,7 @@ function Banner() {
       <div className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-background flex gap-1 py-1 px-4 rounded-full shadow">
         {banner?.data.map((b, i) => (
           <div
+            onClick={() => api?.scrollTo(i)}
             key={b.id}
             className={cn(
               "rounded-full border text-sm w-8 h-8 flex justify-center items-center cursor-pointer",
