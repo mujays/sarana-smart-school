@@ -16,8 +16,6 @@ import { z } from "zod";
 import { Input } from "@/components/shared/input";
 import { Button } from "@/components/shared/ui/button";
 import { useMemo, useState } from "react";
-import { axiosConfigKesiswaan } from "@/configs/axios";
-import moment from "moment";
 import "moment/locale/id";
 import { toast } from "sonner";
 import { TPpdb } from "@/service/types";
@@ -25,19 +23,56 @@ import { useRouter } from "next/navigation";
 import Dropfile from "@/components/shared/dropfile";
 import FileItem from "@/components/shared/file-item";
 import { InputPassword } from "@/components/shared/input-password";
+import { RadioGroup, RadioGroupItem } from "@/components/shared/ui/radio-group";
+import { axiosConfigKesiswaan } from "@/configs/axios";
+import moment from "moment";
 
-const formSchema = z.object({
-  url_kia: z.string().min(1, "KIA harus diisi"),
-  url_akta: z.string().min(1, "Akte harus diisi"),
-  url_kk: z.string().min(1, "Kartu keluarga harus diisi"),
-  ktp_ayah: z.string().min(1, "KTP harus diisi"),
-  ktp_ibu: z.string().min(1, "KTP harus diisi"),
-  email: z.string().email("email tidak valid").min(1, "Email harus diisi"),
-  password: z.string().min(6, "Password minimal 6 karakter"),
-});
+const formSchema = z
+  .object({
+    url_kia: z.string().min(1, "KIA harus diisi"),
+    url_akta: z.string().min(1, "Akte harus diisi"),
+    url_kk: z.string().min(1, "Kartu keluarga harus diisi"),
+    ktp_ayah: z.string().min(1, "KTP harus diisi"),
+    ktp_ibu: z.string().min(1, "KTP harus diisi"),
+    haveAccount: z.string().min(1, "Status akun harus dipilih"),
+    name: z.string().optional(),
+    phone: z.string().optional(),
+    email: z.string().email("Email tidak valid").min(1, "Email harus diisi"),
+    password: z.string().optional(),
+  })
+  .superRefine((data, ctx) => {
+    if (data.haveAccount === "yes") {
+      if (!data.name || data.name.trim() === "") {
+        ctx.addIssue({
+          path: ["name"],
+          code: z.ZodIssueCode.custom,
+          message: "Nama harus diisi, cek email terlebih dahulu",
+        });
+      }
+      if (!data.phone || data.phone.trim() === "") {
+        ctx.addIssue({
+          path: ["phone"],
+          code: z.ZodIssueCode.custom,
+          message: "Telepon harus diisi, cek email terlebih dahulu",
+        });
+      }
+    } else {
+      if (!data.password || data.password.length < 6) {
+        ctx.addIssue({
+          path: ["password"],
+          code: z.ZodIssueCode.too_small,
+          type: "string",
+          minimum: 6,
+          inclusive: true,
+          message: "Password minimal 6 karakter",
+        });
+      }
+    }
+  });
 
 function DaftarUlang({ siswa, isPpdb }: { siswa: TPpdb; isPpdb: boolean }) {
   const [loading, setLoading] = useState(false);
+  const [loadingCheck, setLoadingCheck] = useState(false);
   const [fileAkte, setFileAkte] = useState<File | null>(null);
   const [fileKia, setFileKia] = useState<File | null>(null);
   const [fileKk, setFileKk] = useState<File | null>(null);
@@ -84,12 +119,58 @@ function DaftarUlang({ siswa, isPpdb }: { siswa: TPpdb; isPpdb: boolean }) {
       ktp_ibu: "",
       email: "",
       password: "",
+      haveAccount: "",
+      name: "",
+      phone: "",
     },
   });
+
+  const isHaveAccount = form.watch("haveAccount");
+
+  const checkEmail = async () => {
+    try {
+      form.setValue("name", "");
+      form.setValue("phone", "");
+      setLoadingCheck(true);
+      const res = await axiosConfigKesiswaan.post("/find-wali", {
+        email: form.getValues("email"),
+      });
+      if (res.data?.data) {
+        form.setValue("name", res.data?.data?.nama);
+        form.setValue("phone", res.data?.data?.no_hp);
+      } else {
+        toast.error("Email tidak ditemukan");
+      }
+    } catch (error: any) {
+      if (error?.response?.data) {
+        const message = error.response.data as any;
+        toast.error(message.message);
+        return;
+      }
+    } finally {
+      setLoadingCheck(false);
+    }
+  };
 
   const onSubmit = async (val: any) => {
     try {
       const endpoinType = isPpdb ? "/form-siswa" : "/form-pindahan";
+
+      const waliPayload =
+        val.haveAccount === "yes"
+          ? {
+              id: 32,
+            }
+          : {
+              email: val.email,
+              password: val.password,
+              nama: siswa?.data_ortu?.nama,
+              hubungan: siswa?.data_ortu?.hubungan,
+              no_hp: siswa?.data_ortu?.no_hp,
+              pekerjaan: siswa?.data_ortu?.pekerjaan,
+              gaji: siswa?.data_ortu?.gaji,
+            };
+
       const response = await axiosConfigKesiswaan.put(
         `${endpoinType}/public/${siswa.id}`,
         {
@@ -136,15 +217,7 @@ function DaftarUlang({ siswa, isPpdb }: { siswa: TPpdb; isPpdb: boolean }) {
               ...(dataSaudara || []),
             ],
           },
-          wali: {
-            email: val.email,
-            password: val.password,
-            nama: siswa?.data_ortu?.nama,
-            hubungan: siswa?.data_ortu?.hubungan,
-            no_hp: siswa?.data_ortu?.no_hp,
-            pekerjaan: siswa?.data_ortu?.pekerjaan,
-            gaji: siswa?.data_ortu?.gaji,
-          },
+          wali: waliPayload,
         }
       );
       toast.success("Daftar Ulang Berhasil!");
@@ -359,43 +432,139 @@ function DaftarUlang({ siswa, isPpdb }: { siswa: TPpdb; isPpdb: boolean }) {
 
             <div className="p-5 rounded-lg border border-gray-300 space-y-3">
               <p className="text-center font-semibold text-xl mb-2">
-                Buat akun untuk aplikasi Wali
+                Akun untuk aplikasi Wali
               </p>
 
               <FormField
                 control={form.control}
-                name="email"
+                name="haveAccount"
                 render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Email</FormLabel>
-                    <FormDescription className="!mt-0">
-                      Pastikan email anda aktif
-                    </FormDescription>
+                  <FormItem className="space-y-3">
+                    <FormLabel>Sudah punya akun?</FormLabel>
                     <FormControl>
-                      <Input type="email" placeholder="Email" {...field} />
+                      <RadioGroup
+                        onValueChange={field.onChange}
+                        className="flex flex-col space-y-1"
+                      >
+                        <FormItem className="flex items-center space-x-3 space-y-0">
+                          <FormControl>
+                            <RadioGroupItem value="no" />
+                          </FormControl>
+                          <FormLabel className="font-normal">Belum</FormLabel>
+                        </FormItem>
+                        <FormItem className="flex items-center space-x-3 space-y-0">
+                          <FormControl>
+                            <RadioGroupItem value="yes" />
+                          </FormControl>
+                          <FormLabel className="font-normal">Sudah</FormLabel>
+                        </FormItem>
+                      </RadioGroup>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
 
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <InputPassword
-                        autoComplete="off"
-                        placeholder="Password"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              {isHaveAccount === "yes" && (
+                <>
+                  <div className="space-y-3">
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem className="w-full">
+                          <FormLabel>Masukkan Email yang terdaftar</FormLabel>
+                          <FormControl>
+                            <Input
+                              type="email"
+                              placeholder="Email"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <Button onClick={checkEmail} disabled={loadingCheck}>
+                      {loadingCheck ? "Loading" : "Cek Email"}
+                    </Button>
+                  </div>
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel>Nama Akun</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="text"
+                            placeholder="Nama"
+                            disabled
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="phone"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel>Nomor Telepon</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="text"
+                            placeholder="Telepon"
+                            disabled
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </>
+              )}
+              {isHaveAccount === "no" && (
+                <>
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel>Email</FormLabel>
+                        <FormDescription className="!mt-0">
+                          Pastikan email anda aktif
+                        </FormDescription>
+                        <FormControl>
+                          <Input type="email" placeholder="Email" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel>Password</FormLabel>
+                        <FormControl>
+                          <InputPassword
+                            autoComplete="off"
+                            placeholder="Password"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </>
+              )}
             </div>
 
             <div className="flex justify-end pt-3">
