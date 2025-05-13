@@ -254,7 +254,7 @@ function FormulirSiswa({
             keluarga: [
               {
                 nama: val.nama_ayah,
-                hubungan: "Orang Tua",
+                hubungan: "Ayah",
                 jenis_kelamin: "Laki-laki",
                 gaji: val.gaji_ayah,
                 pendidikan: val.pendidikan_ayah,
@@ -272,7 +272,7 @@ function FormulirSiswa({
               },
               {
                 nama: val.nama_ibu,
-                hubungan: "Orang Tua",
+                hubungan: "Ibu",
                 jenis_kelamin: "Perempuan",
                 gaji: val.gaji_ibu,
                 pendidikan: val.pendidikan_ibu,

@@ -82,7 +82,7 @@ function DaftarUlang({ siswa, isPpdb }: { siswa: TPpdb; isPpdb: boolean }) {
   const dataAyah = useMemo(() => {
     if (siswa) {
       return siswa.data_siswa.keluarga?.filter(
-        (kel: any) => kel.hubungan === "Orang Tua"
+        (kel: any) => kel.hubungan === "Ayah"
       )[0];
     }
 
@@ -92,8 +92,8 @@ function DaftarUlang({ siswa, isPpdb }: { siswa: TPpdb; isPpdb: boolean }) {
   const dataIbu = useMemo(() => {
     if (siswa) {
       return siswa.data_siswa.keluarga?.filter(
-        (kel: any) => kel.hubungan === "Orang Tua"
-      )[1];
+        (kel: any) => kel.hubungan === "Ibu"
+      )[0];
     }
 
     return null;

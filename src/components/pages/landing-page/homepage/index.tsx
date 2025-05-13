@@ -296,9 +296,14 @@ export default function Homepage() {
             <Title title="Daftar Sekarang dan Nikmati Pengalaman Belajar yang Menyenangkan" />
           </motion.div>
 
-          <Button size="sm" asChild>
-            <Link href="/formulir-pendaftaran">Daftarkan Siswa Baru</Link>
-          </Button>
+          <div className="flex justify-center items-center gap-3">
+            <Button size="sm" asChild>
+              <Link href="/formulir-pendaftaran">Daftarkan Siswa Baru</Link>
+            </Button>
+            <Button size="sm" variant="secondary" asChild>
+              <Link href="/formulir-pindahan">Daftarkan Siswa Pindahan</Link>
+            </Button>
+          </div>
         </section>
       </AppPadding>
     </main>
