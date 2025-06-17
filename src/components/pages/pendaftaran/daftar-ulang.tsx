@@ -29,7 +29,7 @@ import moment from "moment";
 
 const formSchema = z
   .object({
-    url_kia: z.string().min(1, "KIA harus diisi"),
+    url_kia: z.string().optional(),
     url_akta: z.string().min(1, "Akte harus diisi"),
     url_kk: z.string().min(1, "Kartu keluarga harus diisi"),
     ktp_ayah: z.string().min(1, "KTP harus diisi"),
@@ -78,7 +78,7 @@ function DaftarUlang({ siswa, isPpdb }: { siswa: TPpdb; isPpdb: boolean }) {
   const [fileKk, setFileKk] = useState<File | null>(null);
   const [ktpAyah, setKtpAyah] = useState<File | null>(null);
   const [ktpIbu, setKtpIbu] = useState<File | null>(null);
-
+  console.log({ siswa: siswa.data_siswa });
   const dataAyah = useMemo(() => {
     if (siswa) {
       return siswa.data_siswa.keluarga?.filter(
