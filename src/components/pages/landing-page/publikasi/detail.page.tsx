@@ -33,12 +33,7 @@ async function DetailNews({ params }: PropsComponent) {
               sizes="500px"
               alt="Thumbnail"
               src={(news.data?.url as string) || "/images/no-thumbnail.png"}
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                objectPosition: "center",
-              }}
+              className="w-full h-auto object-cover object-center"
             />
           </div>
           <div

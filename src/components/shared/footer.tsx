@@ -15,10 +15,7 @@ function Footer() {
               priority
               alt="Logo SD"
               src="/images/logo-sd-white.svg"
-              style={{
-                width: "170px",
-                height: "auto",
-              }}
+              className="w-[170px] h-auto"
             />
             <div className="flex flex-col lg:flex-row gap-10 lg:gap-5 justify-between text-primary-foreground">
               <div className="space-y-5 w-full">
@@ -30,10 +27,7 @@ function Footer() {
                     priority
                     alt="Location"
                     src="/images/icon/pin.svg"
-                    style={{
-                      width: "30px",
-                      height: "auto",
-                    }}
+                    className="w-[30px] h-auto"
                   />
                   <p>Jl.Kecapi No.49 Jagakarsa Jakarta Selatan</p>
                 </div>
@@ -47,10 +41,7 @@ function Footer() {
                     priority
                     alt="Telepon"
                     src="/images/icon/telepon.svg"
-                    style={{
-                      width: "20px",
-                      height: "auto",
-                    }}
+                    className="w-230px] h-auto"
                   />
                   <p className="text-sm">Telpon : (021) 7888 5945</p>
                 </div>
@@ -65,10 +56,7 @@ function Footer() {
                     priority
                     alt="Email"
                     src="/images/icon/fax.svg"
-                    style={{
-                      width: "20px",
-                      height: "auto",
-                    }}
+                    className="w-[20px] h-auto"
                   />
                   <p className="text-sm">
                     Email : smartschooljagakarsa@gmail.com
@@ -88,10 +76,7 @@ function Footer() {
                     priority
                     alt="Instagram"
                     src="/images/icon/instagram.svg"
-                    style={{
-                      width: "20px",
-                      height: "auto",
-                    }}
+                    className="w-[20px] h-auto"
                   />
                   <p className="text-sm">Instagram</p>
                 </Link>
@@ -106,10 +91,7 @@ function Footer() {
                     priority
                     alt="Youtube"
                     src="/images/icon/youtube.svg"
-                    style={{
-                      width: "20px",
-                      height: "auto",
-                    }}
+                    className="w-[20px] h-auto"
                   />
                   <p className="text-sm">Youtube</p>
                 </Link>

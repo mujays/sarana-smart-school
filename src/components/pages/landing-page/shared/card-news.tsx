@@ -27,11 +27,7 @@ function CardNews({
           alt="News"
           src={src || "/images/no-thumbnail.png"}
           sizes="500px"
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-          }}
+          className="w-full h-auto object-cover"
         />
       </div>
       <div className="p-3">

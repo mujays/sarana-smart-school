@@ -121,10 +121,7 @@ export default function Homepage() {
               priority
               alt="Logo Sekolah Adab Kepemimpinan"
               src="/images/logo-sak.svg"
-              style={{
-                width: "100%",
-                height: "auto",
-              }}
+              className="w-full h-auto"
             />
           </motion.div>
           <motion.div
@@ -167,10 +164,7 @@ export default function Homepage() {
                   priority
                   alt="Logo SD"
                   src="/images/logo-sd.svg"
-                  style={{
-                    width: "100%",
-                    height: "auto",
-                  }}
+                  className="w-full h-auto"
                 />
               </div>
               <p>
@@ -193,10 +187,7 @@ export default function Homepage() {
                   priority
                   alt="Logo SMP"
                   src="/images/logo-smp.svg"
-                  style={{
-                    width: "100%",
-                    height: "auto",
-                  }}
+                  className="w-full h-auto"
                 />
               </div>
               <p>
@@ -218,10 +209,7 @@ export default function Homepage() {
               socmedIg?.data
                 .filter((s) => s.sosial_media === "INSTAGRAM")
                 .map((s) => (
-                  <div
-                    key={s.id}
-                    style={{ display: "flex", justifyContent: "center" }}
-                  >
+                  <div key={s.id} className="flex justify-center">
                     <InstagramEmbed url={s.url} width={"100%"} />
                   </div>
                 ))

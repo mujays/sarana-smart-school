@@ -21,7 +21,13 @@ type Props = {
   }[];
 };
 
-function ProjectSection({ kelas, card, description, listDescription, titleProject }: Props) {
+function ProjectSection({
+  kelas,
+  card,
+  description,
+  listDescription,
+  titleProject,
+}: Props) {
   const dataClass = PROJECT_CLASS.find((d) => d.class === kelas);
 
   const { data: project1 } = useQuery({
@@ -64,10 +70,7 @@ function ProjectSection({ kelas, card, description, listDescription, titleProjec
                   priority
                   alt="Location"
                   src="/images/icon/check.svg"
-                  style={{
-                    width: "20px",
-                    height: "auto",
-                  }}
+                  className="w-[20px] h-auto"
                 />
                 <p className="text-xl  font-medium">{desc}</p>
               </div>
@@ -88,16 +91,20 @@ function ProjectSection({ kelas, card, description, listDescription, titleProjec
                     height={300}
                     priority
                     alt="Project Image"
-                    src={project1?.data[0]?.url_hover || "/images/placeholder.png"}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                    }}
+                    src={
+                      project1?.data[0]?.url_hover || "/images/placeholder.png"
+                    }
+                    className="w-full h-auto object-cover"
                   />
                 </div>
-                <p className="text-xl text-center font-bold text-white py-3">{project1?.data[0]?.title}</p>
-                <p className="text-center flex-grow overflow-auto text-white mb-10">{project1?.data[0]?.meta?.find((m) => m.name === "description")?.value || ""}</p>
+                <p className="text-xl text-center font-bold text-white py-3">
+                  {project1?.data[0]?.title}
+                </p>
+                <p className="text-center flex-grow overflow-auto text-white mb-10">
+                  {project1?.data[0]?.meta?.find(
+                    (m) => m.name === "description"
+                  )?.value || ""}
+                </p>
               </div>
               <div className="aspect-square rounded-xl overflow-hidden">
                 <Image
@@ -105,16 +112,19 @@ function ProjectSection({ kelas, card, description, listDescription, titleProjec
                   height={300}
                   priority
                   alt="Project Image"
-                  src={project1?.data[0]?.url_non_hover || "/images/placeholder.png"}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
+                  src={
+                    project1?.data[0]?.url_non_hover ||
+                    "/images/placeholder.png"
+                  }
+                  className="w-full h-auto object-cover"
                 />
               </div>
-              <p className="text-xl text-center font-bold text-secondary py-3">{project1?.data[0]?.title}</p>
-              <p className="text-center pb-4 text-sm lg:text-base">Durasi pengerjaan 5 bulan</p>
+              <p className="text-xl text-center font-bold text-secondary py-3">
+                {project1?.data[0]?.title}
+              </p>
+              <p className="text-center pb-4 text-sm lg:text-base">
+                Durasi pengerjaan 5 bulan
+              </p>
               <div className="w-fit absolute bottom-2 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground mx-auto px-3 py-1 rounded-full whitespace-nowrap text-sm lg:text-base ">
                 Semester {project1?.data[0]?.semester}
               </div>
@@ -129,16 +139,20 @@ function ProjectSection({ kelas, card, description, listDescription, titleProjec
                     height={300}
                     priority
                     alt="Project Image"
-                    src={project2?.data[0]?.url_hover || "/images/placeholder.png"}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                    }}
+                    src={
+                      project2?.data[0]?.url_hover || "/images/placeholder.png"
+                    }
+                    className="w-full h-auto object-cover"
                   />
                 </div>
-                <p className="text-xl text-center font-bold text-white py-3">{project2?.data[0]?.title}</p>
-                <p className="text-center flex-grow overflow-auto text-white mb-10">{project2?.data[0]?.meta?.find((m) => m.name === "description")?.value || ""}</p>
+                <p className="text-xl text-center font-bold text-white py-3">
+                  {project2?.data[0]?.title}
+                </p>
+                <p className="text-center flex-grow overflow-auto text-white mb-10">
+                  {project2?.data[0]?.meta?.find(
+                    (m) => m.name === "description"
+                  )?.value || ""}
+                </p>
               </div>
               <div className="aspect-square rounded-xl overflow-hidden">
                 <Image
@@ -146,16 +160,19 @@ function ProjectSection({ kelas, card, description, listDescription, titleProjec
                   height={300}
                   priority
                   alt="Project Image"
-                  src={project2?.data[0]?.url_non_hover || "/images/placeholder.png"}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                  }}
+                  src={
+                    project2?.data[0]?.url_non_hover ||
+                    "/images/placeholder.png"
+                  }
+                  className="w-full h-auto object-cover"
                 />
               </div>
-              <p className="text-xl text-center font-bold text-secondary py-3">{project2?.data[0]?.title}</p>
-              <p className="text-center pb-4 text-sm lg:text-base">Durasi pengerjaan 5 bulan</p>
+              <p className="text-xl text-center font-bold text-secondary py-3">
+                {project2?.data[0]?.title}
+              </p>
+              <p className="text-center pb-4 text-sm lg:text-base">
+                Durasi pengerjaan 5 bulan
+              </p>
               <div className="w-fit absolute bottom-2 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground mx-auto px-3 py-1 rounded-full whitespace-nowrap text-sm lg:text-base ">
                 Semester {project2?.data[0]?.semester}
               </div>
