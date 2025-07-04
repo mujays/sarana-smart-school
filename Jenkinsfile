@@ -42,7 +42,7 @@ pipeline {
                 sshagent(credentials: ['server-fe-levera']) {
                     withCredentials([
                         usernamePassword(credentialsId: 'github-token', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PAT'),
-                        file(credentialsId: 'fe-dev-sd-smart', variable: 'ENVFILE')
+                        file(credentialsId: 'fe-sd-smart-dev', variable: 'ENVFILE')
                     ]) {
                         sh """
                         ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@$HOST '
@@ -84,7 +84,7 @@ pipeline {
             slackSend(
                 channel: '#info-server',
                 color: 'good',
-                message: "✅ *FE SD Smart Main deployed successfully* to *${HOST}*"
+                message: "✅ *FE SD Smart dev deployed successfully* to *${HOST}*"
             )
         }
 
@@ -92,7 +92,7 @@ pipeline {
             slackSend(
                 channel: '#info-server',
                 color: 'danger',
-                message: "❌ *FE SD Smart Main deployment failed* on *${HOST}*"
+                message: "❌ *FE SD Smart Dev deployment failed* on *${HOST}*"
             )
         }
     }

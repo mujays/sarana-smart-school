@@ -1,12 +1,12 @@
 services:
-  fe-sd-smart:
-    container_name: fe-sd-smart
+  fe-sd-smart-dev:
+    container_name: fe-sd-smart-dev
     build: .
     ports:
       - "3000:3000"
     networks:
-      - shared_net
+      - caddy
 
 networks:
-  shared_net:
+  caddy:
     external: true
