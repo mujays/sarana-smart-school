@@ -10,6 +10,7 @@ pipeline {
         DEPLOY_DIR = '/var/www/fe-sd-smart-dev'
         HOST = '3.0.3.215'
     }
+
     stages {
         stage('Pre-Deploy Check') {
             steps {
@@ -21,9 +22,9 @@ pipeline {
 
                 sshagent(credentials: ['server-fe-levera']) {
                     sh """
-                    ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@$HOST '
-                        echo "📦 Checking $DEPLOY_DIR" &&
-                        if [ -d $DEPLOY_DIR ]; then
+                    ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@${HOST} '
+                        echo "📦 Checking ${DEPLOY_DIR}" &&
+                        if [ -d "${DEPLOY_DIR}" ]; then
                             echo "✅ Directory exists"
                         else
                             echo "ℹ️ Directory not found. Will be created during clone."
@@ -45,15 +46,15 @@ pipeline {
                         file(credentialsId: 'fe-sd-smart-dev', variable: 'ENVFILE')
                     ]) {
                         sh """
-                        ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@$HOST '
-                            if [ ! -d $DEPLOY_DIR/.git ]; then
+                        ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@${HOST} '
+                            if [ ! -d "${DEPLOY_DIR}/.git" ]; then
                                 echo "📥 Cloning fresh repo... "
-                                rm -rf $DEPLOY_DIR &&
-                                git clone -b $BRANCH_TO_BUILD https://$GIT_USER:$GIT_PAT@github.com/SaranaTechnology/FE-sd-smart-school.git $DEPLOY_DIR
+                                rm -rf "${DEPLOY_DIR}" &&
+                                git clone -b "${BRANCH_TO_BUILD}" https://${GIT_USER}:${GIT_PAT}@github.com/SaranaTechnology/FE-sd-smart-school.git "${DEPLOY_DIR}"
                             else
                                 echo "🔄 Pulling latest code..."
-                                cd $DEPLOY_DIR &&
-                                git checkout $BRANCH_TO_BUILD &&
+                                cd "${DEPLOY_DIR}" &&
+                                git checkout "${BRANCH_TO_BUILD}" &&
                                 git fetch &&
                                 git reset --hard &&
                                 git pull
@@ -61,11 +62,11 @@ pipeline {
                         '
 
                         echo "📤 Uploading .env..."
-                        scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null $ENVFILE root@$HOST:\$DEPLOY_DIR/.env
+                        scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "${ENVFILE}" root@${HOST}:"${DEPLOY_DIR}/.env"
 
                         echo "🚀 Running Docker Compose..."
-                        ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@$HOST '
-                            cd $DEPLOY_DIR &&
+                        ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@${HOST} '
+                            cd "${DEPLOY_DIR}" &&
                             docker compose down || true &&
                             docker compose build &&
                             docker compose up -d &&
