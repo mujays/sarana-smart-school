@@ -52,12 +52,7 @@ function Banner() {
                   alt={banner.pages}
                   src={banner.url}
                   sizes="100vw"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "contain",
-                    objectPosition: "center",
-                  }}
+                  className="w-full h-auto object-contain object-center"
                 />
               </CarouselItem>
             ))
@@ -70,12 +65,7 @@ function Banner() {
                 alt={"Not Found"}
                 src={"/images/placeholder.png"}
                 sizes="100vw"
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  objectPosition: "center",
-                }}
+                className="w-full h-auto object-contain object-center"
               />
             </CarouselItem>
           )}

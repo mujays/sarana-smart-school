@@ -34,10 +34,7 @@ function ClassProject() {
                   priority
                   alt="Location"
                   src="/images/icon/check.svg"
-                  style={{
-                    width: "20px",
-                    height: "auto",
-                  }}
+                  className="w-full h-auto"
                 />
                 <p className="text-xl  font-medium">{desc}</p>
               </div>
@@ -49,7 +46,10 @@ function ClassProject() {
           {projects?.data.length && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {projects?.data.map((pro) => (
-                <div key={pro.id} className="relative group p-2 pb-10 rounded-xl shadow overflow-hidden">
+                <div
+                  key={pro.id}
+                  className="relative group p-2 pb-10 rounded-xl shadow overflow-hidden"
+                >
                   <div className="absolute rounded-xl bottom-0 left-0 right-0 top-full group-hover:top-0 transition-all bg-orange-500 p-2 flex flex-col">
                     <div className="h-40 rounded-lg overflow-hidden mb-3">
                       <Image
@@ -58,15 +58,16 @@ function ClassProject() {
                         priority
                         alt="Project Image"
                         src={pro?.url_hover || "/images/placeholder.png"}
-                        style={{
-                          width: "100%",
-                          height: "100%",
-                          objectFit: "cover",
-                        }}
+                        className="w-full h-auto object-cover"
                       />
                     </div>
-                    <p className="text-xl text-center font-bold text-white py-3">{pro?.title}</p>
-                    <p className="text-center flex-grow overflow-auto text-white mb-10">{pro?.meta?.find((m) => m.name === "description")?.value || ""}</p>
+                    <p className="text-xl text-center font-bold text-white py-3">
+                      {pro?.title}
+                    </p>
+                    <p className="text-center flex-grow overflow-auto text-white mb-10">
+                      {pro?.meta?.find((m) => m.name === "description")
+                        ?.value || ""}
+                    </p>
                   </div>
                   <div className="aspect-square">
                     <Image
@@ -75,14 +76,15 @@ function ClassProject() {
                       priority
                       alt="Project Image"
                       src={pro?.url_non_hover || "/images/placeholder.png"}
-                      style={{
-                        width: "100%",
-                        height: "auto",
-                      }}
+                      className="w-full h-auto"
                     />
                   </div>
-                  <p className="text-xl text-center font-bold text-secondary py-3 flex-grow">{pro?.title}</p>
-                  <p className="text-center pb-4 text-sm lg:text-base">Durasi pengerjaan 5 bulan</p>
+                  <p className="text-xl text-center font-bold text-secondary py-3 flex-grow">
+                    {pro?.title}
+                  </p>
+                  <p className="text-center pb-4 text-sm lg:text-base">
+                    Durasi pengerjaan 5 bulan
+                  </p>
                   <div className="w-fit absolute bottom-2 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground mx-auto px-3 py-1 rounded-full whitespace-nowrap text-sm lg:text-base ">
                     Semester {pro?.semester}
                   </div>

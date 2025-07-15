@@ -29,10 +29,7 @@ function Navbar() {
             priority
             alt="Logo SD"
             src="/images/logo-sd.svg"
-            style={{
-              width: "170px",
-              height: "auto",
-            }}
+            className="w-[170px] h-auto"
           />
         </Link>
         <div

@@ -107,10 +107,7 @@ function FormulirPindahan() {
           priority
           alt="Logo SD"
           src="/images/logo-sd.svg"
-          style={{
-            width: "280px",
-            height: "auto",
-          }}
+          className="w-[280px] h-auto"
         />
         <p className="text-center font-semibold text-2xl mb-5">
           Formulir Siswa Pindahan

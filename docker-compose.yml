@@ -1,0 +1,12 @@
+services:
+  fe-sd-smart-dev:
+    container_name: fe-sd-smart-dev
+    build: .
+    ports:
+      - "3004:3000"
+    networks:
+      - caddy
+
+networks:
+  caddy:
+    external: true
