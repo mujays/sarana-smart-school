@@ -9,6 +9,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import AppPadding from "./app-padding";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -69,6 +70,22 @@ function Navbar() {
               {m.label}
             </Link>
           ))}
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button size="sm" variant="link">
+                Daftarkan Siswa
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="flex flex-col gap-2">
+              <Button size="sm" variant="link" asChild>
+                <Link href="/formulir-pendaftaran">Daftarkan Siswa Baru</Link>
+              </Button>
+              <Button size="sm" variant="link" asChild>
+                <Link href="/formulir-pindahan">Daftarkan Siswa Pindahan</Link>
+              </Button>
+            </PopoverContent>
+          </Popover>
+
           <Button asChild variant="default">
             <Link target="_blank" href="https://wali.smart.sch.id/">
               Login Sebagai Wali
