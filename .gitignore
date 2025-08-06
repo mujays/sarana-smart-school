@@ -35,3 +35,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+#jenkins dan docker compose
+docker-compose.yml
+Jenkinsfile
