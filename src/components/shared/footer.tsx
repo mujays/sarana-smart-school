@@ -41,7 +41,7 @@ function Footer() {
                     priority
                     alt="Telepon"
                     src="/images/icon/telepon.svg"
-                    className="w-230px] h-auto"
+                    className="w-[20px] h-auto"
                   />
                   <p className="text-sm">Telpon : (021) 7888 5945</p>
                 </div>

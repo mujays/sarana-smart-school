@@ -10,7 +10,7 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body className="overflow-x-hidden">
-        <Toaster richColors position="top-right" />
+        <Toaster richColors position="top-right" theme="light" />
         <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
