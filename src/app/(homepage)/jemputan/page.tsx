@@ -49,8 +49,6 @@ function JemputanPage() {
     return () => unsubscribe();
   }, []);
 
-  console.log({ pickups });
-
   const tableHeader: ColumnDef<any>[] = [
     {
       accessorKey: "no",
