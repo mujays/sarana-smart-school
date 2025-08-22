@@ -50,7 +50,7 @@ function Navbar() {
         </div>
         <div
           className={cn(
-            "fixed transition-transform lg:transition-none duration-500 lg:static lg:items-center flex flex-col lg:flex-row bg-background p-10 lg:p-0 lg:justify-end gap-6 lg:gap-8 left-0 bottom-0 top-0 w-[50vw] lg:translate-x-0",
+            "fixed transition-transform lg:transition-none duration-500 lg:static lg:items-center flex flex-col lg:flex-row bg-background p-4 lg:p-0 lg:justify-end gap-6 lg:gap-8 left-0 bottom-0 top-0 w-[50vw] lg:translate-x-0",
             {
               "translate-x-0": isOpen,
               "-translate-x-[50rem]": !isOpen,
@@ -72,7 +72,7 @@ function Navbar() {
           ))}
           <Popover>
             <PopoverTrigger asChild>
-              <Button size="sm" variant="link">
+              <Button size="sm" variant="outline">
                 Daftarkan Siswa
               </Button>
             </PopoverTrigger>
@@ -87,7 +87,11 @@ function Navbar() {
           </Popover>
 
           <Button asChild variant="default">
-            <Link target="_blank" href="https://wali.smart.sch.id/">
+            <Link
+              target="_blank"
+              href="https://wali.smart.sch.id/"
+              className="text-xs lg:text-base"
+            >
               Login Sebagai Wali
             </Link>
           </Button>
