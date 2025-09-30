@@ -78,7 +78,6 @@ function DaftarUlang({ siswa, isPpdb }: { siswa: TPpdb; isPpdb: boolean }) {
   const [fileKk, setFileKk] = useState<File | null>(null);
   const [ktpAyah, setKtpAyah] = useState<File | null>(null);
   const [ktpIbu, setKtpIbu] = useState<File | null>(null);
-  console.log({ siswa: siswa.data_siswa });
   const dataAyah = useMemo(() => {
     if (siswa) {
       return siswa.data_siswa.keluarga?.filter(

@@ -107,55 +107,74 @@ export default function Homepage() {
               ))}
           </motion.div>
         </section>
-        <section className="flex flex-col md:flex-row items-center gap-5 py-20">
+        <section className="flex flex-col md:flex-row items-stretch gap-8">
           <motion.div
             variants={leftToRight}
             initial="hidden"
             viewport={{ once: true }}
             whileInView="visible"
-            className="w-52 md:basis-5/12"
+            className="space-y-3 text-center flex flex-col justify-center shadow-lg rounded-xl p-4"
           >
-            <Image
-              width={500}
-              height={300}
-              priority
-              alt="Logo Sekolah Adab Kepemimpinan"
-              src="/images/logo-sak.svg"
-              className="w-full h-auto"
-            />
-          </motion.div>
-          <motion.div
-            variants={rightToLeft}
-            initial="hidden"
-            viewport={{ once: true }}
-            whileInView="visible"
-            className="md:basis-7/12 space-y-3 text-center md:text-left"
-          >
-            <Title title="Sekolah Adab Kepemimpinan" />
-            <p className="leading-7">
-              Smart School adalah sekolah dasar yang mengusung kurikulum adab
-              kepemimpinan. Mengembangkan 21th century skill untuk menyiapkan
-              pemimpin masa depan yang berakhlak dan unggul secara kemampuan
-              akademik maupun emosional.
+            <Title title="Mengapa SD Smart School ?" />
+            <p>
+              Smart School memfasilitasi berbagai minat dan bakat siswa serta
+              mengembangkannya menjadi pribadi yang berani dan berkpribadian
+              unggul.
             </p>
-            <div className="flex justify-center">
-              <Button asChild>
-                <Link href="https://www.pendidikancerdas.org/" target="_blank">
-                  Pelajari Lebih Lanjut
-                </Link>
-              </Button>
-            </div>
           </motion.div>
-        </section>
-        <section className="py-10 space-y-5 text-center">
-          <Title title="Jenjang Pendidikan" />
-          <div className="flex flex-col md:flex-row gap-5">
+          <section className="flex flex-col md:flex-row items-center gap-y-5 p-4 shadow-lg rounded-xl">
             <motion.div
               variants={leftToRight}
               initial="hidden"
               viewport={{ once: true }}
               whileInView="visible"
-              className="w-full flex flex-col items-center"
+              className=""
+            >
+              <Image
+                width={500}
+                height={300}
+                priority
+                alt="Logo Sekolah Adab Kepemimpinan"
+                src="/images/logo-sak.svg"
+                className="w-72 h-72"
+              />
+            </motion.div>
+            <motion.div
+              variants={rightToLeft}
+              initial="hidden"
+              viewport={{ once: true }}
+              whileInView="visible"
+              className="md:basis-7/12 space-y-3 text-center"
+            >
+              <Title title="Sekolah Adab Kepemimpinan" />
+              <p className="leading-7 text-center">
+                Smart School adalah sekolah dasar yang mengusung kurikulum adab
+                kepemimpinan. Mengembangkan 21th century skill untuk menyiapkan
+                pemimpin masa depan yang berakhlak dan unggul secara kemampuan
+                akademik maupun emosional.
+              </p>
+              <div className="flex justify-center">
+                <Button asChild>
+                  <Link
+                    href="https://www.pendidikancerdas.org/"
+                    target="_blank"
+                  >
+                    Pelajari Lebih Lanjut
+                  </Link>
+                </Button>
+              </div>
+            </motion.div>
+          </section>
+        </section>
+        <section className="py-10 space-y-5 text-center">
+          <Title title="Jenjang Pendidikan" />
+          <div className="flex flex-col md:flex-row gap-5 ">
+            <motion.div
+              variants={leftToRight}
+              initial="hidden"
+              viewport={{ once: true }}
+              whileInView="visible"
+              className="w-full flex flex-col items-center p-4 shadow-lg rounded-xl"
             >
               <div className="p-3">
                 <Image
@@ -178,7 +197,7 @@ export default function Homepage() {
               initial="hidden"
               viewport={{ once: true }}
               whileInView="visible"
-              className="w-full flex flex-col items-center"
+              className="w-full flex flex-col items-center p-4 shadow-lg rounded-xl"
             >
               <div className="p-3">
                 <Image

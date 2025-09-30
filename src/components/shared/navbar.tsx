@@ -9,6 +9,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import AppPadding from "./app-padding";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,7 +50,7 @@ function Navbar() {
         </div>
         <div
           className={cn(
-            "fixed transition-transform lg:transition-none duration-500 lg:static lg:items-center flex flex-col lg:flex-row bg-background p-10 lg:p-0 lg:justify-end gap-6 lg:gap-8 left-0 bottom-0 top-0 w-[50vw] lg:translate-x-0",
+            "fixed transition-transform lg:transition-none duration-500 lg:static lg:items-center flex flex-col lg:flex-row bg-background p-4 lg:p-0 lg:justify-end gap-6 lg:gap-8 left-0 bottom-0 top-0 w-[50vw] lg:translate-x-0",
             {
               "translate-x-0": isOpen,
               "-translate-x-[50rem]": !isOpen,
@@ -69,8 +70,28 @@ function Navbar() {
               {m.label}
             </Link>
           ))}
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button size="sm" variant="outline">
+                Daftarkan Siswa
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="flex flex-col gap-2">
+              <Button size="sm" variant="link" asChild>
+                <Link href="/formulir-pendaftaran">Daftarkan Siswa Baru</Link>
+              </Button>
+              <Button size="sm" variant="link" asChild>
+                <Link href="/formulir-pindahan">Daftarkan Siswa Pindahan</Link>
+              </Button>
+            </PopoverContent>
+          </Popover>
+
           <Button asChild variant="default">
-            <Link target="_blank" href="https://wali.smart.sch.id/">
+            <Link
+              target="_blank"
+              href="https://wali.smart.sch.id/"
+              className="text-xs lg:text-base"
+            >
               Login Sebagai Wali
             </Link>
           </Button>
