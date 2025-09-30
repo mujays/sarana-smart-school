@@ -99,8 +99,8 @@ function Pendaftaran() {
           className="w-[280px] h-auto"
         />
         <p className="text-center font-semibold text-2xl mb-5">
-          Buku Tamu PPDB {new Date().getFullYear()} -{" "}
-          {new Date().getFullYear() + 1}
+          Buku Tamu PPDB {new Date().getFullYear() + 1} -{" "}
+          {new Date().getFullYear() + 2}
         </p>
       </div>
 

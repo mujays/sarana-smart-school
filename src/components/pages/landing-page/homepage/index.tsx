@@ -286,7 +286,7 @@ export default function Homepage() {
 
           <div className="flex justify-center items-center gap-3">
             <Button size="sm" asChild>
-              <Link href="/formulir-pendaftaran">Daftarkan Siswa Baru</Link>
+              <Link href="/buku-tamu">Daftarkan Siswa Baru</Link>
             </Button>
             <Button size="sm" variant="secondary" asChild>
               <Link href="/formulir-pindahan">Daftarkan Siswa Pindahan</Link>
