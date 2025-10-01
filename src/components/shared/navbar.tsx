@@ -78,7 +78,7 @@ function Navbar() {
             </PopoverTrigger>
             <PopoverContent className="flex flex-col gap-2">
               <Button size="sm" variant="link" asChild>
-                <Link href="/formulir-pendaftaran">Daftarkan Siswa Baru</Link>
+                <Link href="/buku-tamu">Daftarkan Siswa Baru</Link>
               </Button>
               <Button size="sm" variant="link" asChild>
                 <Link href="/formulir-pindahan">Daftarkan Siswa Pindahan</Link>
