@@ -14,7 +14,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Input } from "@/components/shared/input";
-import { requiredNoEmojiString } from "@/lib/zod-validators";
+import { PhoneInput } from "@/components/shared/phone-input";
+import { requiredNoEmojiString, phoneInputString } from "@/lib/zod-validators";
+import { formatPhoneFromPhoneInput } from "@/lib/phone-utils";
 import {
   Popover,
   PopoverContent,
@@ -38,7 +40,7 @@ function Pendaftaran() {
 
   const formValidation = z.object({
     nama_siswa: requiredNoEmojiString(1, "nama siswa harus diisi"),
-    no_hp_orang_tua: requiredNoEmojiString(1, "nomor telepon harus diisi"),
+    no_hp_orang_tua: phoneInputString("nomor telepon harus diisi"),
     email_orang_tua: z
       .string()
       .min(1, "email harus diisi")
@@ -67,7 +69,7 @@ function Pendaftaran() {
     resolver: zodResolver(formValidation),
     defaultValues: {
       nama_siswa: isDev ? "TEST_DEV" : "",
-      no_hp_orang_tua: isDev ? "080000000" : "",
+      no_hp_orang_tua: isDev ? "1234567890" : "",
       email_orang_tua: isDev ? "email@example.com" : "",
       tanggal_lahir: new Date(),
       alamat: isDev ? "ALAMAT" : "",
@@ -83,6 +85,7 @@ function Pendaftaran() {
       setLoading(true);
       const response = await axiosConfigKesiswaan.post("/form-siswa", {
         ...val,
+        no_hp_orang_tua: formatPhoneFromPhoneInput(val.no_hp_orang_tua),
         types: "SD",
         status: "PENDING_PAYMENT",
         tanggal_lahir: moment(val.tanggal_lahir).format("YYYY-MM-DD"),
@@ -193,7 +196,7 @@ function Pendaftaran() {
                   <FormItem className="w-full">
                     <FormLabel>Nomor Telepon Wali</FormLabel>
                     <FormControl>
-                      <Input type="tel" placeholder="08..." {...field} />
+                      <PhoneInput {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

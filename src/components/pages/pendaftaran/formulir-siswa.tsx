@@ -14,10 +14,13 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Input } from "@/components/shared/input";
+import { PhoneInput } from "@/components/shared/phone-input";
 import {
   requiredNoEmojiString,
   optionalNoEmojiString,
+  phoneInputString,
 } from "@/lib/zod-validators";
+import { formatPhoneFromPhoneInput } from "@/lib/phone-utils";
 import {
   Popover,
   PopoverContent,
@@ -77,7 +80,7 @@ const formSchema = z.object({
   alamat_sekolah_asal: optionalNoEmojiString(),
   namaWali: requiredNoEmojiString(1, "Nama wali harus diisi"),
   hubungan: z.string().min(1, "Hubungan harus diisi"),
-  no_hp: requiredNoEmojiString(1, "Nomor telepon harus diisi"),
+  no_hp: phoneInputString("Nomor telepon harus diisi"),
   pekerjaan: requiredNoEmojiString(1, "Pekerjaan harus diisi"),
   // url_kia: z.string().min(1, "KIA harus diisi"),
   // url_akta: z.string().min(1, "Akte harus diisi"),
@@ -87,7 +90,7 @@ const formSchema = z.object({
   // Orang Tua
   nama_ayah: requiredNoEmojiString(1, "Nama harus diisi"),
   pendidikan_ayah: z.string().min(1, "Pendidikan harus diisi"),
-  no_hp_ayah: requiredNoEmojiString(1, "Nomor telepon harus diisi"),
+  no_hp_ayah: phoneInputString("Nomor telepon harus diisi"),
   gaji_ayah: z.number(),
   pekerjaan_ayah: requiredNoEmojiString(1, "Pekerjaan harus diisi"),
   tanggal_lahir_ayah: z.date({ required_error: "Tanggal lahir harus diisi" }),
@@ -112,7 +115,7 @@ const formSchema = z.object({
 
   nama_ibu: requiredNoEmojiString(1, "Nama harus diisi"),
   pendidikan_ibu: z.string().min(1, "Pendidikan harus diisi"),
-  no_hp_ibu: requiredNoEmojiString(1, "Nomor telepon harus diisi"),
+  no_hp_ibu: phoneInputString("Nomor telepon harus diisi"),
   tanggal_lahir_ibu: z.date({ required_error: "Tanggal lahir harus diisi" }),
   gaji_ibu: z.number(),
   pekerjaan_ibu: requiredNoEmojiString(1, "Pekerjaan harus diisi"),
@@ -203,7 +206,7 @@ function FormulirSiswa({
       // orang tua
       nama_ayah: isDev ? "NAMA_AYAH" : "",
       pendidikan_ayah: isDev ? "S1" : "",
-      no_hp_ayah: isDev ? "081234567890" : "",
+      no_hp_ayah: isDev ? "1234567890" : "",
       tanggal_lahir_ayah: new Date(),
       gaji_ayah: 0,
       pekerjaan_ayah: isDev ? "PEKERJAAN_AYAH" : "",
@@ -218,7 +221,7 @@ function FormulirSiswa({
 
       nama_ibu: isDev ? "NAMA_IBU" : "",
       pendidikan_ibu: isDev ? "SMA" : "",
-      no_hp_ibu: isDev ? "081234567891" : "",
+      no_hp_ibu: isDev ? "1234567891" : "",
       tanggal_lahir_ibu: new Date(siswa.tanggal_lahir),
       gaji_ibu: 0,
       pekerjaan_ibu: isDev ? "PEKERJAAN_IBU" : "",
@@ -287,7 +290,7 @@ function FormulirSiswa({
                 gaji: val.gaji_ayah,
                 pendidikan: val.pendidikan_ayah,
                 pekerjaan: val.pekerjaan_ayah,
-                no_hp: val.no_hp_ayah,
+                no_hp: formatPhoneFromPhoneInput(val.no_hp_ayah),
                 agama: val.agama_ayah,
                 suku: val.suku_ayah,
                 alamat: val.alamat_ayah,
@@ -305,7 +308,7 @@ function FormulirSiswa({
                 gaji: val.gaji_ibu,
                 pendidikan: val.pendidikan_ibu,
                 pekerjaan: val.pekerjaan_ibu,
-                no_hp: val.no_hp_ibu,
+                no_hp: formatPhoneFromPhoneInput(val.no_hp_ibu),
                 agama: val.agama_ibu,
                 suku: val.suku_ibu,
                 alamat: val.alamat_ibu,
@@ -341,7 +344,7 @@ function FormulirSiswa({
           data_ortu: {
             nama: val.namaWali,
             hubungan: val.hubungan,
-            no_hp: val.no_hp,
+            no_hp: formatPhoneFromPhoneInput(val.no_hp),
             pekerjaan: val.pekerjaan,
             gaji: val.gaji,
           },
@@ -957,7 +960,7 @@ function FormulirSiswa({
                   <FormItem className="w-full">
                     <FormLabel>Nomor Telepon</FormLabel>
                     <FormControl>
-                      <Input type="tel" placeholder="08..." {...field} />
+                      <PhoneInput {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -1141,7 +1144,7 @@ function FormulirSiswa({
                     <FormItem className="w-full">
                       <FormLabel>Nomor Telepon</FormLabel>
                       <FormControl>
-                        <Input type="tel" placeholder="08..." {...field} />
+                        <PhoneInput {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -1361,7 +1364,7 @@ function FormulirSiswa({
                     <FormItem className="w-full">
                       <FormLabel>Nomor Telepon</FormLabel>
                       <FormControl>
-                        <Input type="tel" placeholder="08..." {...field} />
+                        <PhoneInput {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
