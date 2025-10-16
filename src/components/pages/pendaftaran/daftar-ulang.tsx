@@ -14,6 +14,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Input } from "@/components/shared/input";
+import { optionalNoEmojiString } from "@/lib/zod-validators";
 import { Button } from "@/components/shared/ui/button";
 import { useMemo, useState } from "react";
 import "moment/locale/id";
@@ -35,9 +36,21 @@ const formSchema = z
     ktp_ayah: z.string().min(1, "KTP harus diisi"),
     ktp_ibu: z.string().min(1, "KTP harus diisi"),
     haveAccount: z.string().min(1, "Status akun harus dipilih"),
-    name: z.string().optional(),
-    phone: z.string().optional(),
-    email: z.string().email("Email tidak valid").min(1, "Email harus diisi"),
+    name: optionalNoEmojiString(),
+    phone: optionalNoEmojiString(),
+    email: z
+      .string()
+      .email("Email tidak valid")
+      .min(1, "Email harus diisi")
+      .refine(
+        (val) =>
+          !/[\uD83C-\uDBFF][\uDC00-\uDFFF]|[\u2600-\u27FF]|[\uD83C][\uDF00-\uDFFF]|[\uD83D][\uDC00-\uDE4F]|[\uD83D][\uDE80-\uDEFF]|[\uD83E][\uDD00-\uDDFF]/.test(
+            val
+          ),
+        {
+          message: "Email tidak boleh mengandung emoticon atau emoji",
+        }
+      ),
     password: z.string().optional(),
   })
   .superRefine((data, ctx) => {

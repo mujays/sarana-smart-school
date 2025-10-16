@@ -14,6 +14,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Input } from "@/components/shared/input";
+import { requiredNoEmojiString } from "@/lib/zod-validators";
 import {
   Popover,
   PopoverContent,
@@ -36,21 +37,30 @@ function Pendaftaran() {
   const isDev = process.env.NODE_ENV === "development";
 
   const formValidation = z.object({
-    nama_siswa: z.string().min(1, "nama siswa harus diisi"),
-    no_hp_orang_tua: z.string().min(1, "nomor telepon harus diisi"),
+    nama_siswa: requiredNoEmojiString(1, "nama siswa harus diisi"),
+    no_hp_orang_tua: requiredNoEmojiString(1, "nomor telepon harus diisi"),
     email_orang_tua: z
       .string()
       .min(1, "email harus diisi")
-      .email("email tidak valid"),
+      .email("email tidak valid")
+      .refine(
+        (val) =>
+          !/[\uD83C-\uDBFF][\uDC00-\uDFFF]|[\u2600-\u27FF]|[\uD83C][\uDF00-\uDFFF]|[\uD83D][\uDC00-\uDE4F]|[\uD83D][\uDE80-\uDEFF]|[\uD83E][\uDD00-\uDDFF]/.test(
+            val
+          ),
+        {
+          message: "Email tidak boleh mengandung emoticon atau emoji",
+        }
+      ),
     tanggal_lahir: z
       .date()
       .nullable()
       .refine((val) => val, "tanggal lahir harus di isi"),
-    alamat: z.string().min(1, "alamat harus diisi"),
-    sekolah_asal: z.string().min(1, "sekolah asal harus diisi"),
-    nama_orang_tua: z.string().min(1, "nama wali murid harus diisi"),
-    know_from: z.string().min(1, "Info harus diisi"),
-    reason: z.string().min(1, "alasan harus diisi"),
+    alamat: requiredNoEmojiString(1, "alamat harus diisi"),
+    sekolah_asal: requiredNoEmojiString(1, "sekolah asal harus diisi"),
+    nama_orang_tua: requiredNoEmojiString(1, "nama wali murid harus diisi"),
+    know_from: requiredNoEmojiString(1, "Info harus diisi"),
+    reason: requiredNoEmojiString(1, "alasan harus diisi"),
   });
 
   const form = useForm({

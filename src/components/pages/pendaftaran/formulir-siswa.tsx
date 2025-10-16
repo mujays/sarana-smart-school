@@ -15,6 +15,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Input } from "@/components/shared/input";
 import {
+  requiredNoEmojiString,
+  optionalNoEmojiString,
+} from "@/lib/zod-validators";
+import {
   Popover,
   PopoverContent,
   PopoverTrigger,
@@ -42,14 +46,14 @@ import FileItem from "@/components/shared/file-item";
 import Dropfile from "@/components/shared/dropfile";
 
 const formSchema = z.object({
-  nama: z.string().min(1, "Nama harus diisi"),
-  nik: z.string().min(16, "NIK minimal 16 digit"),
-  ibu_kandung: z.string().min(1, "Nama ibu kandung harus diisi"),
+  nama: requiredNoEmojiString(1, "Nama harus diisi"),
+  nik: requiredNoEmojiString(16, "NIK minimal 16 digit"),
+  ibu_kandung: requiredNoEmojiString(1, "Nama ibu kandung harus diisi"),
   agama: z.string().min(1, "Agama harus diisi"),
   tanggal_lahir: z.date({ required_error: "Tanggal lahir harus diisi" }),
-  alamat: z.string().min(1, "Alamat harus diisi"),
+  alamat: requiredNoEmojiString(1, "Alamat harus diisi"),
   jumlah_saudara: z.number(),
-  telp_rumah: z.string().optional(),
+  telp_rumah: optionalNoEmojiString(),
   anak_ke: z.number(),
   tinggal_bersama: z.string().min(1, "Tinggal bersama harus diisi"),
   // rt: z.string().min(1, "RT harus diisi"),
@@ -58,59 +62,83 @@ const formSchema = z.object({
   // kecamatan: z.string().min(1, "Kecamatan harus diisi"),
   // kota: z.string().min(1, "Kota harus diisi"),
   // provinsi: z.string().min(1, "Provinsi harus diisi"),
-  tempat_lahir: z.string().min(1, "Tampat lahir harus diisi"),
+  tempat_lahir: requiredNoEmojiString(1, "Tampat lahir harus diisi"),
   jenis_kelamin: z.string().min(1, "Jenis kelamin harus diisi"),
-  bahasa_sehari: z.string().min(1, "Bahasa harus diisi"),
+  bahasa_sehari: requiredNoEmojiString(1, "Bahasa harus diisi"),
   kewarganegaraan: z.string().min(1, "Kewarganegaraan harus diisi"),
-  suku: z.string().min(1, "Suku harus diisi"),
+  suku: requiredNoEmojiString(1, "Suku harus diisi"),
   tinggi_badan: z.string().min(1, "Tinggi badan harus diisi"),
   berat_badan: z.string().min(1, "Berat badan harus diisi"),
   lingkar_kepala: z.string().min(1, "Lingkar kepala harus diisi"),
-  lulusan_dari: z.string().optional(),
+  lulusan_dari: optionalNoEmojiString(),
   tahun_lulus_asal: z.string().optional(),
-  npsn_asal: z.string().optional(),
+  npsn_asal: optionalNoEmojiString(),
   gol_darah: z.string().min(1, "Golongan darah harus diisi"),
-  alamat_sekolah_asal: z.string().optional(),
-  namaWali: z.string().min(1, "Nama wali harus diisi"),
+  alamat_sekolah_asal: optionalNoEmojiString(),
+  namaWali: requiredNoEmojiString(1, "Nama wali harus diisi"),
   hubungan: z.string().min(1, "Hubungan harus diisi"),
-  no_hp: z.string().min(1, "Nomor telepon harus diisi"),
-  pekerjaan: z.string().min(1, "Pekerjaan harus diisi"),
+  no_hp: requiredNoEmojiString(1, "Nomor telepon harus diisi"),
+  pekerjaan: requiredNoEmojiString(1, "Pekerjaan harus diisi"),
   // url_kia: z.string().min(1, "KIA harus diisi"),
   // url_akta: z.string().min(1, "Akte harus diisi"),
   // url_kk: z.string().min(1, "Kartu keluarga harus diisi"),
   avatar: z.string().min(1, "Foto ananda harus diisi"),
   gaji: z.number(),
   // Orang Tua
-  nama_ayah: z.string().min(1, "Nama harus diisi"),
+  nama_ayah: requiredNoEmojiString(1, "Nama harus diisi"),
   pendidikan_ayah: z.string().min(1, "Pendidikan harus diisi"),
-  no_hp_ayah: z.string().min(1, "Nomor telepon harus diisi"),
+  no_hp_ayah: requiredNoEmojiString(1, "Nomor telepon harus diisi"),
   gaji_ayah: z.number(),
-  pekerjaan_ayah: z.string().min(1, "Pekerjaan harus diisi"),
+  pekerjaan_ayah: requiredNoEmojiString(1, "Pekerjaan harus diisi"),
   tanggal_lahir_ayah: z.date({ required_error: "Tanggal lahir harus diisi" }),
-  email_ayah: z.string().min(1, "Email harus diisi"),
+  email_ayah: z
+    .string()
+    .min(1, "Email harus diisi")
+    .email("Email tidak valid")
+    .refine(
+      (val) =>
+        !/[\uD83C-\uDBFF][\uDC00-\uDFFF]|[\u2600-\u27FF]|[\uD83C][\uDF00-\uDFFF]|[\uD83D][\uDC00-\uDE4F]|[\uD83D][\uDE80-\uDEFF]|[\uD83E][\uDD00-\uDDFF]/.test(
+          val
+        ),
+      {
+        message: "Email tidak boleh mengandung emoticon atau emoji",
+      }
+    ),
   agama_ayah: z.string().min(1, "Agama harus diisi"),
   // ktp_ayah: z.string().min(1, "KTP harus diisi"),
-  nik_ayah: z.string().min(16, "NIK minimal 16 digit"),
-  suku_ayah: z.string().min(1, "Suku harus diisi"),
-  alamat_ayah: z.string().min(1, "Alamat harus diisi"),
+  nik_ayah: requiredNoEmojiString(16, "NIK minimal 16 digit"),
+  suku_ayah: requiredNoEmojiString(1, "Suku harus diisi"),
+  alamat_ayah: requiredNoEmojiString(1, "Alamat harus diisi"),
 
-  nama_ibu: z.string().min(1, "Nama harus diisi"),
+  nama_ibu: requiredNoEmojiString(1, "Nama harus diisi"),
   pendidikan_ibu: z.string().min(1, "Pendidikan harus diisi"),
-  no_hp_ibu: z.string().min(1, "Nomor telepon harus diisi"),
+  no_hp_ibu: requiredNoEmojiString(1, "Nomor telepon harus diisi"),
   tanggal_lahir_ibu: z.date({ required_error: "Tanggal lahir harus diisi" }),
   gaji_ibu: z.number(),
-  pekerjaan_ibu: z.string().min(1, "Pekerjaan harus diisi"),
-  email_ibu: z.string().min(1, "Email harus diisi"),
+  pekerjaan_ibu: requiredNoEmojiString(1, "Pekerjaan harus diisi"),
+  email_ibu: z
+    .string()
+    .min(1, "Email harus diisi")
+    .email("Email tidak valid")
+    .refine(
+      (val) =>
+        !/[\uD83C-\uDBFF][\uDC00-\uDFFF]|[\u2600-\u27FF]|[\uD83C][\uDF00-\uDFFF]|[\uD83D][\uDC00-\uDE4F]|[\uD83D][\uDE80-\uDEFF]|[\uD83E][\uDD00-\uDDFF]/.test(
+          val
+        ),
+      {
+        message: "Email tidak boleh mengandung emoticon atau emoji",
+      }
+    ),
   agama_ibu: z.string().min(1, "Agama harus diisi"),
   // ktp_ibu: z.string().min(1, "KTP harus diisi"),
-  nik_ibu: z.string().min(16, "NIK minimal 16 digit"),
-  suku_ibu: z.string().min(1, "Suku harus diisi"),
-  alamat_ibu: z.string().min(1, "Alamat harus diisi"),
+  nik_ibu: requiredNoEmojiString(16, "NIK minimal 16 digit"),
+  suku_ibu: requiredNoEmojiString(1, "Suku harus diisi"),
+  alamat_ibu: requiredNoEmojiString(1, "Alamat harus diisi"),
 
   saudara: z
     .array(
       z.object({
-        nama: z.string().min(1, "Nama harus diisi"),
+        nama: requiredNoEmojiString(1, "Nama harus diisi"),
         jenis_kelamin: z.string().min(1, "Jenis kelamin harus diisi"),
         pendidikan: z.string().min(1, "Pendidikan harus diisi"),
         tanggal_lahir: z.date({ required_error: "Tanggal lahir harus diisi" }),
