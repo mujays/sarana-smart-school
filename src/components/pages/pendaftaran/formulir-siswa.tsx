@@ -383,261 +383,298 @@ function FormulirSiswa({
         </p>
       </div>
 
-      <div>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-            {/* Nama */}
-            <div className="p-5 rounded-lg border border-gray-300 space-y-3">
-              <p className="text-center font-semibold text-xl mb-2">
-                Data Calon Siswa
-              </p>
-              <FormField
-                control={form.control}
-                name="nama"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Nama</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Nama" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <div className="flex flex-col lg:flex-row gap-2">
-                {/* NIK */}
+      {siswa.data_siswa ? (
+        <div>
+          <p className="text-center text-xl mb-2 border border-dashed rounded-lg p-4">
+            Formulir sudah di isi, tidak dapat diubah kembali.
+          </p>
+        </div>
+      ) : (
+        <div>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+              {/* Nama */}
+              <div className="p-5 rounded-lg border border-gray-300 space-y-3">
+                <p className="text-center font-semibold text-xl mb-2">
+                  Data Calon Siswa
+                </p>
                 <FormField
                   control={form.control}
-                  name="nik"
+                  name="nama"
                   render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel>NIK Ananda</FormLabel>
+                    <FormItem>
+                      <FormLabel>Nama</FormLabel>
                       <FormControl>
-                        <Input
-                          placeholder="NIK"
-                          {...field}
-                          onChange={(e) => {
-                            const onlyNums = e.target.value.replace(
-                              /[^0-9]/g,
-                              ""
-                            );
-                            field.onChange(onlyNums);
-                          }}
-                        />
+                        <Input placeholder="Nama" {...field} disabled />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
 
-                {/* Nama Ibu Kandung */}
-                <FormField
-                  control={form.control}
-                  name="ibu_kandung"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel>Nama Ibu Kandung</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Nama Ibu Kandung" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-
-              <FormField
-                control={form.control}
-                name="bahasa_sehari"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Bahasa Sehari-hari</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Pilih Bahasa" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="Bahasa Indonesia">
-                          Bahasa Indonesia
-                        </SelectItem>
-                        <SelectItem value="Bahasa Inggris">
-                          Bahasa Inggris
-                        </SelectItem>
-                        <SelectItem value="Bahasa Arab">Bahasa Arab</SelectItem>
-                        <SelectItem value="Bahasa Mandarin">
-                          Bahasa Mandarin
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              {/* Alamat */}
-              <FormField
-                control={form.control}
-                name="alamat"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Alamat</FormLabel>
-                    <FormDescription className="!mt-0">
-                      Isikan alamat lengkap dari RT, RW, Desa, Kecamatan, Kota
-                      sampai Provinsi.
-                    </FormDescription>
-                    <FormControl>
-                      <Textarea placeholder="Tulis Alamat..." {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              {/* Tanggal Lahir */}
-              <FormField
-                control={form.control}
-                name="tanggal_lahir"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>Tanggal Lahir</FormLabel>
-                    <Popover>
-                      <PopoverTrigger asChild>
+                <div className="flex flex-col lg:flex-row gap-2">
+                  {/* NIK */}
+                  <FormField
+                    control={form.control}
+                    name="nik"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel>NIK Ananda</FormLabel>
                         <FormControl>
-                          <Button variant="outline">
-                            {field.value
-                              ? moment(field.value).format("DD/MM/YYYY")
-                              : "Pilih Tanggal"}
-                            <CalendarIcon className="ml-2" />
-                          </Button>
+                          <Input
+                            placeholder="NIK"
+                            {...field}
+                            onChange={(e) => {
+                              const onlyNums = e.target.value.replace(
+                                /[^0-9]/g,
+                                ""
+                              );
+                              field.onChange(onlyNums);
+                            }}
+                          />
                         </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent>
-                        <Calendar
-                          mode="single"
-                          selected={field.value}
-                          onSelect={field.onChange}
-                          fromYear={1970}
-                          toYear={new Date().getFullYear()}
-                          captionLayout="dropdown"
-                        />
-                      </PopoverContent>
-                    </Popover>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-              {/* Tempat Lahir */}
-              <FormField
-                control={form.control}
-                name="tempat_lahir"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Tempat Lahir</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Tempat Lahir" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                  {/* Nama Ibu Kandung */}
+                  <FormField
+                    control={form.control}
+                    name="ibu_kandung"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel>Nama Ibu Kandung</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Nama Ibu Kandung" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
 
-              <FormField
-                control={form.control}
-                name="jenis_kelamin"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Jenis Kelamin</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Pilih Jenis Kelamin" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="Laki-laki">Laki-laki</SelectItem>
-                        <SelectItem value="Perempuan">Perempuan</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              {/* Agama & Kewarganegaraan */}
-              <div className="flex gap-2">
                 <FormField
                   control={form.control}
-                  name="agama"
+                  name="bahasa_sehari"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel>Agama</FormLabel>
+                      <FormLabel>Bahasa Sehari-hari</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Pilih Bahasa" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="Bahasa Indonesia">
+                            Bahasa Indonesia
+                          </SelectItem>
+                          <SelectItem value="Bahasa Inggris">
+                            Bahasa Inggris
+                          </SelectItem>
+                          <SelectItem value="Bahasa Arab">
+                            Bahasa Arab
+                          </SelectItem>
+                          <SelectItem value="Bahasa Mandarin">
+                            Bahasa Mandarin
+                          </SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                {/* Alamat */}
+                <FormField
+                  control={form.control}
+                  name="alamat"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Alamat</FormLabel>
+                      <FormDescription className="!mt-0">
+                        Isikan alamat lengkap dari RT, RW, Desa, Kecamatan, Kota
+                        sampai Provinsi.
+                      </FormDescription>
                       <FormControl>
-                        <Input placeholder="Agama" {...field} />
+                        <Textarea placeholder="Tulis Alamat..." {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
+
+                {/* Tanggal Lahir */}
                 <FormField
                   control={form.control}
-                  name="kewarganegaraan"
+                  name="tanggal_lahir"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel>Tanggal Lahir</FormLabel>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <FormControl>
+                            <Button variant="outline">
+                              {field.value
+                                ? moment(field.value).format("DD/MM/YYYY")
+                                : "Pilih Tanggal"}
+                              <CalendarIcon className="ml-2" />
+                            </Button>
+                          </FormControl>
+                        </PopoverTrigger>
+                        <PopoverContent>
+                          <Calendar
+                            mode="single"
+                            selected={field.value}
+                            onSelect={field.onChange}
+                            fromYear={1970}
+                            toYear={new Date().getFullYear()}
+                            captionLayout="dropdown"
+                          />
+                        </PopoverContent>
+                      </Popover>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                {/* Tempat Lahir */}
+                <FormField
+                  control={form.control}
+                  name="tempat_lahir"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel>Kewarganegaraan</FormLabel>
+                      <FormLabel>Tempat Lahir</FormLabel>
                       <FormControl>
-                        <Input placeholder="Kewarganegaraan" {...field} />
+                        <Input placeholder="Tempat Lahir" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-              </div>
 
-              <FormField
-                control={form.control}
-                name="telp_rumah"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Telepon Rumah</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Telepon" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="suku"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Suku</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Suku" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <div className="flex gap-2">
                 <FormField
                   control={form.control}
-                  name="tinggi_badan"
+                  name="jenis_kelamin"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel>Tinggi Badan (CM)</FormLabel>
+                      <FormLabel>Jenis Kelamin</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Pilih Jenis Kelamin" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="Laki-laki">Laki-laki</SelectItem>
+                          <SelectItem value="Perempuan">Perempuan</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                {/* Agama & Kewarganegaraan */}
+                <div className="flex gap-2">
+                  <FormField
+                    control={form.control}
+                    name="agama"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel>Agama</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Agama" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="kewarganegaraan"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel>Kewarganegaraan</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Kewarganegaraan" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <FormField
+                  control={form.control}
+                  name="telp_rumah"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormLabel>Telepon Rumah</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Telepon" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="suku"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormLabel>Suku</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Suku" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <div className="flex gap-2">
+                  <FormField
+                    control={form.control}
+                    name="tinggi_badan"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel>Tinggi Badan (CM)</FormLabel>
+                        <FormControl>
+                          <Input type="number" placeholder="CM" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="berat_badan"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel>Berat Badan (Kg)</FormLabel>
+                        <FormControl>
+                          <Input type="number" placeholder="Kg" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <FormField
+                  control={form.control}
+                  name="lingkar_kepala"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormLabel>Lingkar Kepala (CM)</FormLabel>
                       <FormControl>
                         <Input type="number" placeholder="CM" {...field} />
                       </FormControl>
@@ -645,836 +682,267 @@ function FormulirSiswa({
                     </FormItem>
                   )}
                 />
+
                 <FormField
                   control={form.control}
-                  name="berat_badan"
+                  name="gol_darah"
                   render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel>Berat Badan (Kg)</FormLabel>
+                    <FormItem className="space-y-3">
+                      <FormLabel>Golongan Darah</FormLabel>
                       <FormControl>
-                        <Input type="number" placeholder="Kg" {...field} />
+                        <RadioGroup
+                          onValueChange={field.onChange}
+                          className="flex flex-col space-y-1"
+                        >
+                          {["A", "B", "O", "AB"].map((val) => (
+                            <FormItem
+                              key={val}
+                              className="flex items-center space-x-3 space-y-0"
+                            >
+                              <FormControl>
+                                <RadioGroupItem value={val} />
+                              </FormControl>
+                              <FormLabel className="font-normal">
+                                {val}
+                              </FormLabel>
+                            </FormItem>
+                          ))}
+                        </RadioGroup>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-              </div>
 
-              <FormField
-                control={form.control}
-                name="lingkar_kepala"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Lingkar Kepala (CM)</FormLabel>
-                    <FormControl>
-                      <Input type="number" placeholder="CM" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="gol_darah"
-                render={({ field }) => (
-                  <FormItem className="space-y-3">
-                    <FormLabel>Golongan Darah</FormLabel>
-                    <FormControl>
-                      <RadioGroup
+                <FormField
+                  control={form.control}
+                  name="tinggal_bersama"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormLabel>Tinggal Bersama</FormLabel>
+                      <Select
                         onValueChange={field.onChange}
-                        className="flex flex-col space-y-1"
+                        defaultValue={field.value}
                       >
-                        {["A", "B", "O", "AB"].map((val) => (
-                          <FormItem
-                            key={val}
-                            className="flex items-center space-x-3 space-y-0"
-                          >
-                            <FormControl>
-                              <RadioGroupItem value={val} />
-                            </FormControl>
-                            <FormLabel className="font-normal">{val}</FormLabel>
-                          </FormItem>
-                        ))}
-                      </RadioGroup>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Pilih Tinggal" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="Orang Tua">Orang Tua</SelectItem>
+                          <SelectItem value="Anggota Keluarga Lain">
+                            Anggota Keluarga Lain
+                          </SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-              <FormField
-                control={form.control}
-                name="tinggal_bersama"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Tinggal Bersama</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
+                <FormField
+                  control={form.control}
+                  name="anak_ke"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormLabel>Anak Ke</FormLabel>
                       <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Pilih Tinggal" />
-                        </SelectTrigger>
+                        <Input
+                          autoComplete="off"
+                          placeholder="0"
+                          {...field}
+                          value={field.value?.toString() || ""}
+                          onChange={(e) => {
+                            const inputValue = e.target.value;
+                            if (inputValue === "") {
+                              form.setValue("anak_ke", 0);
+                              return;
+                            }
+                            if (inputValue.startsWith("0")) {
+                              form.setValue("anak_ke", +inputValue);
+                              return;
+                            }
+                            if (
+                              /^[0-9]*$/.test(inputValue) &&
+                              !inputValue.startsWith("0")
+                            ) {
+                              form.setValue("anak_ke", +inputValue);
+                              form.clearErrors("anak_ke");
+                            }
+                          }}
+                        />
                       </FormControl>
-                      <SelectContent>
-                        <SelectItem value="Orang Tua">Orang Tua</SelectItem>
-                        <SelectItem value="Anggota Keluarga Lain">
-                          Anggota Keluarga Lain
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-              <FormField
-                control={form.control}
-                name="anak_ke"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Anak Ke</FormLabel>
-                    <FormControl>
-                      <Input
-                        autoComplete="off"
-                        placeholder="0"
-                        {...field}
-                        value={field.value?.toString() || ""}
-                        onChange={(e) => {
-                          const inputValue = e.target.value;
-                          if (inputValue === "") {
-                            form.setValue("anak_ke", 0);
-                            return;
-                          }
-                          if (inputValue.startsWith("0")) {
-                            form.setValue("anak_ke", +inputValue);
-                            return;
-                          }
-                          if (
-                            /^[0-9]*$/.test(inputValue) &&
-                            !inputValue.startsWith("0")
-                          ) {
-                            form.setValue("anak_ke", +inputValue);
-                            form.clearErrors("anak_ke");
-                          }
-                        }}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                <FormField
+                  control={form.control}
+                  name="jumlah_saudara"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormLabel>Dari Berapa Saudara</FormLabel>
+                      <FormControl>
+                        <Input
+                          autoComplete="off"
+                          placeholder="0"
+                          {...field}
+                          value={field.value?.toString() || ""}
+                          onChange={(e) => {
+                            const inputValue = e.target.value;
+                            if (inputValue === "") {
+                              form.setValue("jumlah_saudara", 0);
+                              return;
+                            }
+                            if (inputValue.startsWith("0")) {
+                              form.setValue("jumlah_saudara", +inputValue);
+                              return;
+                            }
+                            if (
+                              /^[0-9]*$/.test(inputValue) &&
+                              !inputValue.startsWith("0")
+                            ) {
+                              form.setValue("jumlah_saudara", +inputValue);
+                              form.clearErrors("jumlah_saudara");
+                            }
+                          }}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-              <FormField
-                control={form.control}
-                name="jumlah_saudara"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Dari Berapa Saudara</FormLabel>
-                    <FormControl>
-                      <Input
-                        autoComplete="off"
-                        placeholder="0"
-                        {...field}
-                        value={field.value?.toString() || ""}
-                        onChange={(e) => {
-                          const inputValue = e.target.value;
-                          if (inputValue === "") {
-                            form.setValue("jumlah_saudara", 0);
-                            return;
-                          }
-                          if (inputValue.startsWith("0")) {
-                            form.setValue("jumlah_saudara", +inputValue);
-                            return;
-                          }
-                          if (
-                            /^[0-9]*$/.test(inputValue) &&
-                            !inputValue.startsWith("0")
-                          ) {
-                            form.setValue("jumlah_saudara", +inputValue);
-                            form.clearErrors("jumlah_saudara");
-                          }
-                        }}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                <div className="space-y-2 border-t border-gray-300 pt-3">
+                  <p className="font-medium text-sm">Foto Ananda</p>
+                  {!fileAvatar ? (
+                    <Dropfile
+                      id="avatar"
+                      description="PNG, JPG dan JPEG"
+                      type="transparent"
+                      onUpload={(file) => {
+                        setFileAvatar(file);
+                      }}
+                      accept=".jpg,.jpeg,.png"
+                      mimeType={["image/jpeg", "image/png", "image/jpeg"]}
+                    />
+                  ) : (
+                    <FileItem
+                      url={URL.createObjectURL(fileAvatar)}
+                      onSuccess={(url) => {
+                        form.setValue("avatar", url);
+                        form.clearErrors("avatar");
+                      }}
+                      file={fileAvatar}
+                      onDelete={() => {
+                        setFileAvatar(null);
+                        form.setValue("avatar", "");
+                      }}
+                    />
+                  )}
+                  {form.formState.errors.avatar && (
+                    <p className="text-red text-sm text-red-500">
+                      {form?.formState?.errors?.avatar.message}
+                    </p>
+                  )}
+                </div>
+              </div>
 
-              <div className="space-y-2 border-t border-gray-300 pt-3">
-                <p className="font-medium text-sm">Foto Ananda</p>
-                {!fileAvatar ? (
-                  <Dropfile
-                    id="avatar"
-                    description="PNG, JPG dan JPEG"
-                    type="transparent"
-                    onUpload={(file) => {
-                      setFileAvatar(file);
-                    }}
-                    accept=".jpg,.jpeg,.png"
-                    mimeType={["image/jpeg", "image/png", "image/jpeg"]}
-                  />
-                ) : (
-                  <FileItem
-                    url={URL.createObjectURL(fileAvatar)}
-                    onSuccess={(url) => {
-                      form.setValue("avatar", url);
-                      form.clearErrors("avatar");
-                    }}
-                    file={fileAvatar}
-                    onDelete={() => {
-                      setFileAvatar(null);
-                      form.setValue("avatar", "");
-                    }}
-                  />
-                )}
-                {form.formState.errors.avatar && (
-                  <p className="text-red text-sm text-red-500">
-                    {form?.formState?.errors?.avatar.message}
+              <div className="p-5 rounded-lg border border-gray-300 space-y-3">
+                <div>
+                  <p className="text-center font-semibold text-xl mb-2">
+                    Asal Sekolah
                   </p>
-                )}
-              </div>
-            </div>
+                  <p className="text-center text-sm text-gray-400 mb-2">
+                    Jika siswa berasal dari pindahan atau Pendidikan Anak Usia
+                    Dini (PAUD)
+                  </p>
+                </div>
 
-            <div className="p-5 rounded-lg border border-gray-300 space-y-3">
-              <div>
-                <p className="text-center font-semibold text-xl mb-2">
-                  Asal Sekolah
-                </p>
-                <p className="text-center text-sm text-gray-400 mb-2">
-                  Jika siswa berasal dari pindahan atau Pendidikan Anak Usia
-                  Dini (PAUD)
-                </p>
-              </div>
-
-              <FormField
-                control={form.control}
-                name="lulusan_dari"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Asal Sekolah</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Asal Sekolah" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <div className="flex flex-col md:flex-row gap-2">
                 <FormField
                   control={form.control}
-                  name="npsn_asal"
+                  name="lulusan_dari"
                   render={({ field }) => (
                     <FormItem className="w-full">
-                      <FormLabel>NPSN (Nomor Pokok Sekolah Nasional)</FormLabel>
+                      <FormLabel>Asal Sekolah</FormLabel>
                       <FormControl>
-                        <Input
-                          placeholder="NPSN"
-                          {...field}
-                          onChange={(e) => {
-                            const onlyNums = e.target.value.replace(
-                              /[^0-9]/g,
-                              ""
-                            );
-                            field.onChange(onlyNums);
-                          }}
-                        />
+                        <Input placeholder="Asal Sekolah" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={form.control}
-                  name="tahun_lulus_asal"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel>Tahun Lulus Sekolah Asal</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Tahun Lulus" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-
-              {/* Alamat */}
-              <FormField
-                control={form.control}
-                name="alamat_sekolah_asal"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Alamat Sekolah Asal</FormLabel>
-                    <FormControl>
-                      <Textarea placeholder="Tulis Alamat..." {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-
-            <div className="p-5 rounded-lg border border-gray-300 space-y-3">
-              <p className="text-center font-semibold text-xl mb-2">
-                Data Wali
-              </p>
-
-              <div className="flex flex-col md:flex-row gap-2">
-                <FormField
-                  control={form.control}
-                  name="namaWali"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel>Nama Wali</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Nama" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                {/* Hubungan */}
-                <FormField
-                  control={form.control}
-                  name="hubungan"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel>Hubungan dengan siswa</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Orang tua, dll..." {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <FormField
-                control={form.control}
-                name="no_hp"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Nomor Telepon</FormLabel>
-                    <FormControl>
-                      <PhoneInput {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="pekerjaan"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Pekerjaan</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Pekerjaan" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="gaji"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Penghasilan Perbulan</FormLabel>
-                    <FormControl>
-                      <Input
-                        autoComplete="off"
-                        placeholder="Rp."
-                        {...field}
-                        value={field.value?.toString() || ""}
-                        onChange={(e) => {
-                          const inputValue = e.target.value;
-                          if (inputValue === "") {
-                            form.setValue("gaji", 0);
-                            return;
-                          }
-                          if (inputValue.startsWith("0")) {
-                            form.setValue("gaji", +inputValue);
-                            return;
-                          }
-                          if (
-                            /^[0-9]*$/.test(inputValue) &&
-                            !inputValue.startsWith("0")
-                          ) {
-                            form.setValue("gaji", +inputValue);
-                            form.clearErrors("gaji");
-                          }
-                        }}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-
-            <div className="p-5 rounded-lg border border-gray-300 space-y-3">
-              <p className="text-center font-semibold text-xl mb-2">
-                Data Orang Tua (Ayah)
-              </p>
-
-              <FormField
-                control={form.control}
-                name="nama_ayah"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Nama Ayah</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Nama" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <div className="flex flex-col md:flex-row gap-2">
-                <FormField
-                  control={form.control}
-                  name="pekerjaan_ayah"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel>Pekerjaan</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Pekerjaan" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="gaji_ayah"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel>Penghasilan Perbulan</FormLabel>
-                      <FormControl>
-                        <Input
-                          autoComplete="off"
-                          placeholder="Rp."
-                          {...field}
-                          value={field.value?.toString() || ""}
-                          onChange={(e) => {
-                            const inputValue = e.target.value;
-                            if (inputValue === "") {
-                              form.setValue("gaji_ayah", 0);
-                              return;
-                            }
-                            if (inputValue.startsWith("0")) {
-                              form.setValue("gaji_ayah", +inputValue);
-                              return;
-                            }
-                            if (
-                              /^[0-9]*$/.test(inputValue) &&
-                              !inputValue.startsWith("0")
-                            ) {
-                              form.setValue("gaji_ayah", +inputValue);
-                              form.clearErrors("gaji_ayah");
-                            }
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-
-              <FormField
-                control={form.control}
-                name="tanggal_lahir_ayah"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col w-full">
-                    <FormLabel>Tanggal Lahir</FormLabel>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button variant="outline">
-                            {field.value
-                              ? moment(field.value).format("DD/MM/YYYY")
-                              : "Pilih Tanggal"}
-                            <CalendarIcon className="ml-2" />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent>
-                        <Calendar
-                          mode="single"
-                          selected={field.value}
-                          onSelect={field.onChange}
-                          fromYear={1970}
-                          toYear={new Date().getFullYear()}
-                          captionLayout="dropdown"
-                        />
-                      </PopoverContent>
-                    </Popover>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <div className="flex flex-col md:flex-row gap-2">
-                <FormField
-                  control={form.control}
-                  name="pendidikan_ayah"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel>Pendidikan</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Pendidikan..." {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="no_hp_ayah"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel>Nomor Telepon</FormLabel>
-                      <FormControl>
-                        <PhoneInput {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <div className="flex flex-col md:flex-row gap-2">
-                <FormField
-                  control={form.control}
-                  name="agama_ayah"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel>Agama</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Agama" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="suku_ayah"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel>Suku</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Suku" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <div className="flex flex-col md:flex-row gap-2">
-                <FormField
-                  control={form.control}
-                  name="email_ayah"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <Input type="email" placeholder="Email" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="nik_ayah"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel>NIK</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="NIK"
-                          {...field}
-                          onChange={(e) => {
-                            const onlyNums = e.target.value.replace(
-                              /[^0-9]/g,
-                              ""
-                            );
-                            field.onChange(onlyNums);
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-
-              <FormField
-                control={form.control}
-                name="alamat_ayah"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Alamat</FormLabel>
-                    <FormDescription className="!mt-0">
-                      Isikan alamat lengkap dari RT, RW, Desa, Kecamatan, Kota
-                      sampai Provinsi.
-                    </FormDescription>
-                    <FormControl>
-                      <Textarea placeholder="Tulis Alamat..." {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-
-            <div className="p-5 rounded-lg border border-gray-300 space-y-3">
-              <p className="text-center font-semibold text-xl mb-2">
-                Data Orang Tua (Ibu)
-              </p>
-
-              <FormField
-                control={form.control}
-                name="nama_ibu"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Nama Ibu</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Nama" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <div className="flex flex-col md:flex-row gap-2">
-                <FormField
-                  control={form.control}
-                  name="pekerjaan_ibu"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel>Pekerjaan</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Pekerjaan" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="gaji_ibu"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel>Penghasilan Perbulan</FormLabel>
-                      <FormControl>
-                        <Input
-                          autoComplete="off"
-                          placeholder="Rp."
-                          {...field}
-                          value={field.value?.toString() || ""}
-                          onChange={(e) => {
-                            const inputValue = e.target.value;
-                            if (inputValue === "") {
-                              form.setValue("gaji_ibu", 0);
-                              return;
-                            }
-                            if (inputValue.startsWith("0")) {
-                              form.setValue("gaji_ibu", +inputValue);
-                              return;
-                            }
-                            if (
-                              /^[0-9]*$/.test(inputValue) &&
-                              !inputValue.startsWith("0")
-                            ) {
-                              form.setValue("gaji_ibu", +inputValue);
-                              form.clearErrors("gaji_ibu");
-                            }
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-
-              <FormField
-                control={form.control}
-                name="tanggal_lahir_ibu"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col w-full">
-                    <FormLabel>Tanggal Lahir</FormLabel>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button variant="outline">
-                            {field.value
-                              ? moment(field.value).format("DD/MM/YYYY")
-                              : "Pilih Tanggal"}
-                            <CalendarIcon className="ml-2" />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent>
-                        <Calendar
-                          mode="single"
-                          selected={field.value}
-                          onSelect={field.onChange}
-                          fromYear={1970}
-                          toYear={new Date().getFullYear()}
-                          captionLayout="dropdown"
-                        />
-                      </PopoverContent>
-                    </Popover>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <div className="flex flex-col md:flex-row gap-2">
-                <FormField
-                  control={form.control}
-                  name="pendidikan_ibu"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel>Pendidikan</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Pendidikan..." {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="no_hp_ibu"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel>Nomor Telepon</FormLabel>
-                      <FormControl>
-                        <PhoneInput {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-
-              <div className="flex flex-col md:flex-row gap-2">
-                <FormField
-                  control={form.control}
-                  name="agama_ibu"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel>Agama</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Agama" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="suku_ibu"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel>Suku</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Suku" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <div className="flex flex-col md:flex-row gap-2">
-                <FormField
-                  control={form.control}
-                  name="email_ibu"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <Input type="email" placeholder="Email" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="nik_ibu"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <FormLabel>NIK</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="NIK"
-                          {...field}
-                          onChange={(e) => {
-                            const onlyNums = e.target.value.replace(
-                              /[^0-9]/g,
-                              ""
-                            );
-                            field.onChange(onlyNums);
-                          }}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-
-              <FormField
-                control={form.control}
-                name="alamat_ibu"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Alamat</FormLabel>
-                    <FormDescription className="!mt-0">
-                      Isikan alamat lengkap dari RT, RW, Desa, Kecamatan, Kota
-                      sampai Provinsi.
-                    </FormDescription>
-                    <FormControl>
-                      <Textarea placeholder="Tulis Alamat..." {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-
-            <div className="space-y-3 border p-4 rounded-lg border-gray-300">
-              <h3 className="text-lg font-semibold text-center">
-                Saudara Kandung
-              </h3>
-              {fields.map((field, index) => (
-                <div
-                  key={field.id}
-                  className="space-y-3 border border-gray-300 p-3 rounded-lg"
-                >
+                <div className="flex flex-col md:flex-row gap-2">
                   <FormField
                     control={form.control}
-                    name={`saudara.${index}.nama`}
+                    name="npsn_asal"
                     render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Nama</FormLabel>
+                      <FormItem className="w-full">
+                        <FormLabel>
+                          NPSN (Nomor Pokok Sekolah Nasional)
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="NPSN"
+                            {...field}
+                            onChange={(e) => {
+                              const onlyNums = e.target.value.replace(
+                                /[^0-9]/g,
+                                ""
+                              );
+                              field.onChange(onlyNums);
+                            }}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="tahun_lulus_asal"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel>Tahun Lulus Sekolah Asal</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Tahun Lulus" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                {/* Alamat */}
+                <FormField
+                  control={form.control}
+                  name="alamat_sekolah_asal"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Alamat Sekolah Asal</FormLabel>
+                      <FormControl>
+                        <Textarea placeholder="Tulis Alamat..." {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <div className="p-5 rounded-lg border border-gray-300 space-y-3">
+                <p className="text-center font-semibold text-xl mb-2">
+                  Data Wali
+                </p>
+
+                <div className="flex flex-col md:flex-row gap-2">
+                  <FormField
+                    control={form.control}
+                    name="namaWali"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel>Nama Wali</FormLabel>
                         <FormControl>
                           <Input placeholder="Nama" {...field} />
                         </FormControl>
@@ -1483,113 +951,663 @@ function FormulirSiswa({
                     )}
                   />
 
+                  {/* Hubungan */}
                   <FormField
                     control={form.control}
-                    name={`saudara.${index}.jenis_kelamin`}
+                    name="hubungan"
                     render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Jenis Kelamin</FormLabel>
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                        >
+                      <FormItem className="w-full">
+                        <FormLabel>Hubungan dengan siswa</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Orang tua, dll..." {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <FormField
+                  control={form.control}
+                  name="no_hp"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormLabel>Nomor Telepon</FormLabel>
+                      <FormControl>
+                        <PhoneInput {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="pekerjaan"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormLabel>Pekerjaan</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Pekerjaan" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="gaji"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormLabel>Penghasilan Perbulan</FormLabel>
+                      <FormControl>
+                        <Input
+                          autoComplete="off"
+                          placeholder="Rp."
+                          {...field}
+                          value={field.value?.toString() || ""}
+                          onChange={(e) => {
+                            const inputValue = e.target.value;
+                            if (inputValue === "") {
+                              form.setValue("gaji", 0);
+                              return;
+                            }
+                            if (inputValue.startsWith("0")) {
+                              form.setValue("gaji", +inputValue);
+                              return;
+                            }
+                            if (
+                              /^[0-9]*$/.test(inputValue) &&
+                              !inputValue.startsWith("0")
+                            ) {
+                              form.setValue("gaji", +inputValue);
+                              form.clearErrors("gaji");
+                            }
+                          }}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <div className="p-5 rounded-lg border border-gray-300 space-y-3">
+                <p className="text-center font-semibold text-xl mb-2">
+                  Data Orang Tua (Ayah)
+                </p>
+
+                <FormField
+                  control={form.control}
+                  name="nama_ayah"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormLabel>Nama Ayah</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Nama" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <div className="flex flex-col md:flex-row gap-2">
+                  <FormField
+                    control={form.control}
+                    name="pekerjaan_ayah"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel>Pekerjaan</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Pekerjaan" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="gaji_ayah"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel>Penghasilan Perbulan</FormLabel>
+                        <FormControl>
+                          <Input
+                            autoComplete="off"
+                            placeholder="Rp."
+                            {...field}
+                            value={field.value?.toString() || ""}
+                            onChange={(e) => {
+                              const inputValue = e.target.value;
+                              if (inputValue === "") {
+                                form.setValue("gaji_ayah", 0);
+                                return;
+                              }
+                              if (inputValue.startsWith("0")) {
+                                form.setValue("gaji_ayah", +inputValue);
+                                return;
+                              }
+                              if (
+                                /^[0-9]*$/.test(inputValue) &&
+                                !inputValue.startsWith("0")
+                              ) {
+                                form.setValue("gaji_ayah", +inputValue);
+                                form.clearErrors("gaji_ayah");
+                              }
+                            }}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <FormField
+                  control={form.control}
+                  name="tanggal_lahir_ayah"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col w-full">
+                      <FormLabel>Tanggal Lahir</FormLabel>
+                      <Popover>
+                        <PopoverTrigger asChild>
                           <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Pilih Jenis Kelamin" />
-                            </SelectTrigger>
+                            <Button variant="outline">
+                              {field.value
+                                ? moment(field.value).format("DD/MM/YYYY")
+                                : "Pilih Tanggal"}
+                              <CalendarIcon className="ml-2" />
+                            </Button>
                           </FormControl>
-                          <SelectContent>
-                            <SelectItem value="Laki-laki">Laki-laki</SelectItem>
-                            <SelectItem value="Perempuan">Perempuan</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
+                        </PopoverTrigger>
+                        <PopoverContent>
+                          <Calendar
+                            mode="single"
+                            selected={field.value}
+                            onSelect={field.onChange}
+                            fromYear={1970}
+                            toYear={new Date().getFullYear()}
+                            captionLayout="dropdown"
+                          />
+                        </PopoverContent>
+                      </Popover>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <div className="flex flex-col md:flex-row gap-2">
                   <FormField
                     control={form.control}
-                    name={`saudara.${index}.tanggal_lahir`}
+                    name="pendidikan_ayah"
                     render={({ field }) => (
-                      <FormItem className="flex flex-col">
-                        <FormLabel>Tanggal Lahir</FormLabel>
-                        <Popover>
-                          <PopoverTrigger asChild>
-                            <FormControl>
-                              <Button variant="outline">
-                                {field.value
-                                  ? moment(field.value).format("DD/MM/YYYY")
-                                  : "Pilih Tanggal"}
-                                <CalendarIcon className="ml-2" />
-                              </Button>
-                            </FormControl>
-                          </PopoverTrigger>
-                          <PopoverContent>
-                            <Calendar
-                              mode="single"
-                              selected={field.value}
-                              onSelect={field.onChange}
-                              fromYear={1970}
-                              toYear={new Date().getFullYear()}
-                              captionLayout="dropdown"
-                            />
-                          </PopoverContent>
-                        </Popover>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name={`saudara.${index}.pendidikan`}
-                    render={({ field }) => (
-                      <FormItem>
+                      <FormItem className="w-full">
                         <FormLabel>Pendidikan</FormLabel>
                         <FormControl>
-                          <Input placeholder="Pendidikan" {...field} />
+                          <Input placeholder="Pendidikan..." {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
 
-                  <Button
-                    variant="destructive"
-                    type="button"
-                    onClick={() => remove(index)}
-                  >
-                    Hapus
-                  </Button>
+                  <FormField
+                    control={form.control}
+                    name="no_hp_ayah"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel>Nomor Telepon</FormLabel>
+                        <FormControl>
+                          <PhoneInput {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                 </div>
-              ))}
+                <div className="flex flex-col md:flex-row gap-2">
+                  <FormField
+                    control={form.control}
+                    name="agama_ayah"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel>Agama</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Agama" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-              <Button
-                type="button"
-                variant="link"
-                className="w-full border border-dashed"
-                onClick={() =>
-                  append({ nama: "", jenis_kelamin: "", pendidikan: "" })
-                }
-              >
-                Tambah Saudara Kandung
-              </Button>
-            </div>
+                  <FormField
+                    control={form.control}
+                    name="suku_ayah"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel>Suku</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Suku" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <div className="flex flex-col md:flex-row gap-2">
+                  <FormField
+                    control={form.control}
+                    name="email_ayah"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel>Email</FormLabel>
+                        <FormControl>
+                          <Input type="email" placeholder="Email" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-            <div className="flex justify-end pt-3">
-              <Button
-                type="submit"
-                className="w-full"
-                variant="secondary"
-                disabled={loading}
-              >
-                Kirim Formulir
-              </Button>
-            </div>
-          </form>
-        </Form>
-      </div>
+                  <FormField
+                    control={form.control}
+                    name="nik_ayah"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel>NIK</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="NIK"
+                            {...field}
+                            onChange={(e) => {
+                              const onlyNums = e.target.value.replace(
+                                /[^0-9]/g,
+                                ""
+                              );
+                              field.onChange(onlyNums);
+                            }}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <FormField
+                  control={form.control}
+                  name="alamat_ayah"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Alamat</FormLabel>
+                      <FormDescription className="!mt-0">
+                        Isikan alamat lengkap dari RT, RW, Desa, Kecamatan, Kota
+                        sampai Provinsi.
+                      </FormDescription>
+                      <FormControl>
+                        <Textarea placeholder="Tulis Alamat..." {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <div className="p-5 rounded-lg border border-gray-300 space-y-3">
+                <p className="text-center font-semibold text-xl mb-2">
+                  Data Orang Tua (Ibu)
+                </p>
+
+                <FormField
+                  control={form.control}
+                  name="nama_ibu"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <FormLabel>Nama Ibu</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Nama" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <div className="flex flex-col md:flex-row gap-2">
+                  <FormField
+                    control={form.control}
+                    name="pekerjaan_ibu"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel>Pekerjaan</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Pekerjaan" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="gaji_ibu"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel>Penghasilan Perbulan</FormLabel>
+                        <FormControl>
+                          <Input
+                            autoComplete="off"
+                            placeholder="Rp."
+                            {...field}
+                            value={field.value?.toString() || ""}
+                            onChange={(e) => {
+                              const inputValue = e.target.value;
+                              if (inputValue === "") {
+                                form.setValue("gaji_ibu", 0);
+                                return;
+                              }
+                              if (inputValue.startsWith("0")) {
+                                form.setValue("gaji_ibu", +inputValue);
+                                return;
+                              }
+                              if (
+                                /^[0-9]*$/.test(inputValue) &&
+                                !inputValue.startsWith("0")
+                              ) {
+                                form.setValue("gaji_ibu", +inputValue);
+                                form.clearErrors("gaji_ibu");
+                              }
+                            }}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <FormField
+                  control={form.control}
+                  name="tanggal_lahir_ibu"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col w-full">
+                      <FormLabel>Tanggal Lahir</FormLabel>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <FormControl>
+                            <Button variant="outline">
+                              {field.value
+                                ? moment(field.value).format("DD/MM/YYYY")
+                                : "Pilih Tanggal"}
+                              <CalendarIcon className="ml-2" />
+                            </Button>
+                          </FormControl>
+                        </PopoverTrigger>
+                        <PopoverContent>
+                          <Calendar
+                            mode="single"
+                            selected={field.value}
+                            onSelect={field.onChange}
+                            fromYear={1970}
+                            toYear={new Date().getFullYear()}
+                            captionLayout="dropdown"
+                          />
+                        </PopoverContent>
+                      </Popover>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <div className="flex flex-col md:flex-row gap-2">
+                  <FormField
+                    control={form.control}
+                    name="pendidikan_ibu"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel>Pendidikan</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Pendidikan..." {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="no_hp_ibu"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel>Nomor Telepon</FormLabel>
+                        <FormControl>
+                          <PhoneInput {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <div className="flex flex-col md:flex-row gap-2">
+                  <FormField
+                    control={form.control}
+                    name="agama_ibu"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel>Agama</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Agama" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="suku_ibu"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel>Suku</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Suku" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <div className="flex flex-col md:flex-row gap-2">
+                  <FormField
+                    control={form.control}
+                    name="email_ibu"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel>Email</FormLabel>
+                        <FormControl>
+                          <Input type="email" placeholder="Email" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="nik_ibu"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel>NIK</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="NIK"
+                            {...field}
+                            onChange={(e) => {
+                              const onlyNums = e.target.value.replace(
+                                /[^0-9]/g,
+                                ""
+                              );
+                              field.onChange(onlyNums);
+                            }}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <FormField
+                  control={form.control}
+                  name="alamat_ibu"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Alamat</FormLabel>
+                      <FormDescription className="!mt-0">
+                        Isikan alamat lengkap dari RT, RW, Desa, Kecamatan, Kota
+                        sampai Provinsi.
+                      </FormDescription>
+                      <FormControl>
+                        <Textarea placeholder="Tulis Alamat..." {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
+              <div className="space-y-3 border p-4 rounded-lg border-gray-300">
+                <h3 className="text-lg font-semibold text-center">
+                  Saudara Kandung
+                </h3>
+                {fields.map((field, index) => (
+                  <div
+                    key={field.id}
+                    className="space-y-3 border border-gray-300 p-3 rounded-lg"
+                  >
+                    <FormField
+                      control={form.control}
+                      name={`saudara.${index}.nama`}
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Nama</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Nama" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name={`saudara.${index}.jenis_kelamin`}
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Jenis Kelamin</FormLabel>
+                          <Select
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                          >
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Pilih Jenis Kelamin" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="Laki-laki">
+                                Laki-laki
+                              </SelectItem>
+                              <SelectItem value="Perempuan">
+                                Perempuan
+                              </SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name={`saudara.${index}.tanggal_lahir`}
+                      render={({ field }) => (
+                        <FormItem className="flex flex-col">
+                          <FormLabel>Tanggal Lahir</FormLabel>
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <FormControl>
+                                <Button variant="outline">
+                                  {field.value
+                                    ? moment(field.value).format("DD/MM/YYYY")
+                                    : "Pilih Tanggal"}
+                                  <CalendarIcon className="ml-2" />
+                                </Button>
+                              </FormControl>
+                            </PopoverTrigger>
+                            <PopoverContent>
+                              <Calendar
+                                mode="single"
+                                selected={field.value}
+                                onSelect={field.onChange}
+                                fromYear={1970}
+                                toYear={new Date().getFullYear()}
+                                captionLayout="dropdown"
+                              />
+                            </PopoverContent>
+                          </Popover>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name={`saudara.${index}.pendidikan`}
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Pendidikan</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Pendidikan" {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <Button
+                      variant="destructive"
+                      type="button"
+                      onClick={() => remove(index)}
+                    >
+                      Hapus
+                    </Button>
+                  </div>
+                ))}
+
+                <Button
+                  type="button"
+                  variant="link"
+                  className="w-full border border-dashed"
+                  onClick={() =>
+                    append({ nama: "", jenis_kelamin: "", pendidikan: "" })
+                  }
+                >
+                  Tambah Saudara Kandung
+                </Button>
+              </div>
+
+              <div className="flex justify-end pt-3">
+                <Button
+                  type="submit"
+                  className="w-full"
+                  variant="secondary"
+                  disabled={loading}
+                >
+                  Kirim Formulir
+                </Button>
+              </div>
+            </form>
+          </Form>
+        </div>
+      )}
     </AppPadding>
   );
 }

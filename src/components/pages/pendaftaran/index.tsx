@@ -71,7 +71,7 @@ function Pendaftaran() {
       nama_siswa: isDev ? "TEST_DEV" : "",
       no_hp_orang_tua: isDev ? "1234567890" : "",
       email_orang_tua: isDev ? "email@example.com" : "",
-      tanggal_lahir: new Date(),
+      tanggal_lahir: null,
       alamat: isDev ? "ALAMAT" : "",
       sekolah_asal: isDev ? "SEKOLAH_ASAL" : "",
       nama_orang_tua: isDev ? "WALI_NAME" : "",
@@ -162,7 +162,7 @@ function Pendaftaran() {
                       <PopoverContent className="w-auto p-0" align="start">
                         <Calendar
                           mode="single"
-                          selected={field.value}
+                          selected={field.value || undefined}
                           onSelect={field.onChange}
                           fromYear={1970}
                           toYear={new Date().getFullYear()}
