@@ -7,7 +7,8 @@ const EMOJI_REGEX =
   /[\uD83C-\uDBFF][\uDC00-\uDFFF]|[\u2600-\u27FF]|[\uD83C][\uDF00-\uDFFF]|[\uD83D][\uDC00-\uDE4F]|[\uD83D][\uDE80-\uDEFF]|[\uD83E][\uDD00-\uDDFF]/g;
 
 // Pattern untuk emoticon berbasis teks seperti :), :D, :(, dll
-const TEXT_EMOTICON_REGEX = /[:;=8][^\s]*[)(\]D\\/|oOpP@#]/g;
+// Lebih spesifik untuk menghindari false positive
+const TEXT_EMOTICON_REGEX = /[:;=8][-o*']?[)(\]D\\/|oOpP@#]/g;
 
 /**
  * Mengecek apakah string mengandung emoji atau emoticon
@@ -24,7 +25,7 @@ export function containsEmoji(text: string): boolean {
  * @returns string - Text tanpa emoji/emoticon
  */
 export function removeEmojis(text: string): string {
-  return text.replace(EMOJI_REGEX, "").replace(TEXT_EMOTICON_REGEX, "").trim();
+  return text.replace(EMOJI_REGEX, "").replace(TEXT_EMOTICON_REGEX, "");
 }
 
 /**

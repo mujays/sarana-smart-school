@@ -1,7 +1,12 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
-import { handleKeyPress, handlePaste, removeEmojis } from "@/lib/emoji-utils";
+import {
+  handleKeyPress,
+  handlePaste,
+  removeEmojis,
+  containsEmoji,
+} from "@/lib/emoji-utils";
 
 interface TextareaProps extends React.ComponentProps<"textarea"> {
   allowEmoji?: boolean; // Prop untuk mengizinkan emoji jika diperlukan
@@ -40,8 +45,14 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
 
     const handleEmojiChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       if (!allowEmoji) {
-        const cleanedValue = removeEmojis(e.target.value);
-        if (cleanedValue !== e.target.value) {
+        const originalValue = e.target.value;
+        const cleanedValue = removeEmojis(originalValue);
+
+        // Hanya intercept jika benar-benar ada emoji yang dihapus
+        if (cleanedValue !== originalValue && containsEmoji(originalValue)) {
+          // Update textarea value secara langsung
+          e.target.value = cleanedValue;
+
           const syntheticEvent = {
             ...e,
             target: { ...e.target, value: cleanedValue },

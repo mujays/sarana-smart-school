@@ -2,7 +2,12 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 import { SearchIcon } from "lucide-react";
-import { handleKeyPress, handlePaste, removeEmojis } from "@/lib/emoji-utils";
+import {
+  handleKeyPress,
+  handlePaste,
+  removeEmojis,
+  containsEmoji,
+} from "@/lib/emoji-utils";
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -48,8 +53,14 @@ const InputSearch = React.forwardRef<HTMLInputElement, InputProps>(
 
     const handleEmojiChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       if (!allowEmoji) {
-        const cleanedValue = removeEmojis(e.target.value);
-        if (cleanedValue !== e.target.value) {
+        const originalValue = e.target.value;
+        const cleanedValue = removeEmojis(originalValue);
+
+        // Hanya intercept jika benar-benar ada emoji yang dihapus
+        if (cleanedValue !== originalValue && containsEmoji(originalValue)) {
+          // Update input value secara langsung
+          e.target.value = cleanedValue;
+
           const syntheticEvent = {
             ...e,
             target: { ...e.target, value: cleanedValue },
