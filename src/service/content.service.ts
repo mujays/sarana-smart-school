@@ -1,4 +1,4 @@
-import axiosConfig from "@/configs/axios";
+import axiosConfig, { axiosConfigKesiswaan } from "@/configs/axios";
 import {
   ArticleType,
   BannerType,
@@ -91,6 +91,16 @@ const ContentsService = {
       {
         params,
       }
+    );
+    return response.data;
+  },
+  healthCheck: async () => {
+    const response = await axiosConfig.get<{ status: string }>("/health");
+    return response.data;
+  },
+  healthCheckKesiswaan: async () => {
+    const response = await axiosConfigKesiswaan.get<{ status: string }>(
+      "/health"
     );
     return response.data;
   },
