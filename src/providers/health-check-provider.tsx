@@ -33,9 +33,12 @@ export const HealthCheckProvider = ({ children }: THealthCheckProvider) => {
         ]);
 
         // Check if both APIs are healthy
-        const isMainApiHealthy = mainApiResult?.status.toLowerCase() === "ok";
+        const isMainApiHealthy =
+          mainApiResult?.status === "fulfilled" ||
+          mainApiResult?.status.toLowerCase() === "ok";
 
         const isFinanceApiHealthy =
+          financeApiResult?.status === "fulfilled" ||
           financeApiResult?.status.toLowerCase() === "ok";
 
         // If either API fails, go to maintenance
